@@ -16,9 +16,10 @@ public class DistanceEvaluator : Condition  {
 		return false;
 	}
 
-	public override void OnTriggerEnter (Collider collider) {
+	void OnTriggerEnter (Collider collider) {
+		Debug.Log ("BITCH");
 		if (collider.tag == "Enemy") {
-			objToEvaluate = collider.GetComponent<GameObject>();
+			//objToEvaluate = collider.GetComponent<GameObject>();
 		}
 	}
 }
