@@ -6,16 +6,23 @@ public class SoldierController : MonoBehaviour {
 
 	private SoldierPawn soldierPawn;
 
+	public Collider myTrans;
+
 	[SerializeField]
 	public List<Order> ordersList;
 
 	void Start () {
 		soldierPawn = GetComponent<SoldierPawn> ();
+		myTrans = this.transform.GetComponent<Collider>();
 	}
 
 	void Update () {
-		if (!soldierPawn.isActing ()) {
-			SendMessage(Process());
+
+		if (!soldierPawn.isActing () && myTrans.isTrigger == false) {
+			myTrans.isTrigger = true;
+		} else if (!soldierPawn.isActing () && myTrans.isTrigger == true) {
+			FUCK();
+			myTrans.isTrigger = false;
 		}
 	}
 
@@ -34,6 +41,19 @@ public class SoldierController : MonoBehaviour {
 		return result;
 	}
 
-	
+	public void FUCK()
+	{
+		switch (Process ()) {
+		case "Wait" :
+			soldierPawn.Wait();
+			break;
+		case "Courrir" :
+			soldierPawn.Courrir();
+			break;
+		case "Tirer" :
+			soldierPawn.Tirer();
+			break;
+		}
+	}
 
 }

@@ -168,4 +168,9 @@ public class SoldierPawn : MonoBehaviour {
 	{
 		cOrder = AllEnums.messagesEnums.Courrir.ToString ();
 	}
+
+	public void Tirer()
+	{
+
+	}
 }
