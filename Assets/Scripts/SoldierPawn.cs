@@ -6,16 +6,30 @@ public class SoldierPawn : MonoBehaviour {
 
 	CharacterController controller;
 
+	public HealthManager healthManager;
+
+	[SerializeField]
 	public float moveSpeed = 5;
 
-	public string cOrder = "";
+	public float reloadTime = 5;
+	public float cReload = 0;
+
+	public float aimTime = 5;
+	public float cAim = 0;
+	
+	public GameObject bulletPrefab;
 
 	public int team = 1;
 
+	public string cOrder = "";
+
+
+	/*
+	 * Used to calculate the orientation and diraction of the player
+	 */
 	public List<int> pheromoneDirection = new List<int> ();
 	public List<Quaternion> pheromoneQuaternion = new List<Quaternion> ();
 	public List<float> pheromoneAngles = new List<float> ();
-
 	public Vector3 pheromoneAngle;
 
 	// if true the character is doing something
@@ -24,6 +38,7 @@ public class SoldierPawn : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		controller = GetComponent<CharacterController> ();
+		healthManager = GetComponent<HealthManager> ();
 
 		for (int i = 7; i >= 0 ; i--) {
 			pheromoneDirection.Add (0);
@@ -49,7 +64,7 @@ public class SoldierPawn : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		/*switch (cOrder) {
+		switch (cOrder) {
 		case ("March") :
 			March ();
 			break;
@@ -62,9 +77,18 @@ public class SoldierPawn : MonoBehaviour {
 		case ("Speak"):
 			Speak();
 			break;
+		case ("PrepareShoot"):
+			PrepareShoot();
+			break;
+		case ("Reload"):
+			Reload();
+			break;
+		case ("Aim"):
+			Aim();
+			break;
 		default :
 			break;
-		}*/
+		}
 	}
 
 	public void SetOrder(string order) {
@@ -90,6 +114,52 @@ public class SoldierPawn : MonoBehaviour {
 
 	public void Stop() {
 		cOrder = "";
+	}
+	
+	public void Reload() {
+		if (cReload <= reloadTime) {
+			cReload += Time.deltaTime;
+		}
+	}
+
+	public bool isReloaded() {
+		if (cReload >= reloadTime) {
+			return true;
+		}
+		return false;
+	}
+
+	public void Aim() {
+		if (cAim <= aimTime) {
+			cAim += Time.deltaTime;
+		}
+	}
+
+	public bool isAimed() {
+		if (cAim >= aimTime) {
+			return true;
+		}
+		return false;
+	}
+
+	public void Shoot() {
+		cReload = 0;
+		cAim = 0;
+		GameObject bullet = (GameObject) Instantiate(bulletPrefab, transform.position + transform.forward * 2, transform.rotation);
+	}
+
+	public void PrepareShoot() {
+		if (!isReloaded ()) {
+			Reload();
+			return;
+		}
+		Debug.Log ("Reload Ready!");
+		if (!isAimed ()) {
+			Aim();
+			return;
+		}
+		Debug.Log ("AimReady");
+		Shoot ();
 	}
 
 	public void ReceivePheromone(SoldierPawn emitter) {
@@ -135,6 +205,6 @@ public class SoldierPawn : MonoBehaviour {
 	}
 
 	public void OnGUI() {
-		GUI.Label(new Rect(300, team * 50, 200, 100), "angle pheromone : " + pheromoneAngle.y);
+		GUI.Label(new Rect(300, team * 50, 400, 400), "angle pheromone : " + pheromoneAngle.y);
 	}
 }

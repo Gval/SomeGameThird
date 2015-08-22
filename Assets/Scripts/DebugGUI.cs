@@ -16,7 +16,12 @@ public class DebugGUI : MonoBehaviour {
 		float newY = 0;
 
 		foreach (SoldierPawn pawn in commander.soldiers) {
-			GUI.Label(new Rect(0, newY += 20, 200, 100), pawn.name); 
+			if (pawn) {
+			GUI.Label(new Rect(0, newY += 20, 200, 100), pawn.name 
+			          + ", health " + pawn.healthManager.health
+			          + ", reload : " + pawn.cReload + "/" + pawn.reloadTime
+			          + ", aim : " + pawn.cAim + "/" + pawn.aimTime); 
+			}
 		}
 	}
 }
