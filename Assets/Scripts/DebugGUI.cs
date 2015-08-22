@@ -12,6 +12,7 @@ public class DebugGUI : MonoBehaviour {
 	void Update () {
 	}
 
+	/*
 	void OnGUI() {
 		float newY = 0;
 
@@ -23,5 +24,5 @@ public class DebugGUI : MonoBehaviour {
 			          + ", aim : " + pawn.cAim + "/" + pawn.aimTime); 
 			}
 		}
-	}
+	}*/
 }
