@@ -8,7 +8,7 @@ public class Commander : MonoBehaviour {
 	public List<SoldierPawn> soldiers = new List<SoldierPawn>();
 
 	[SerializeField]
-	public float	moveSpeed = 5.0f;
+	public float	moveSpeed = 1.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -21,10 +21,15 @@ public class Commander : MonoBehaviour {
 	}
 
 	void Move() {
-		Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+
+		Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
+		Debug.Log ("direction : " + direction);
 		Vector3 velocity = direction * moveSpeed;
-		velocity = transform.TransformDirection (velocity);		
-		controller.Move (velocity * Time.deltaTime);
+		Debug.Log ("moveSpeed : " + moveSpeed);
+		velocity = transform.TransformDirection (velocity);
+		Debug.Log ("velocity : " + moveSpeed);
+		transform.position += velocity;
+		//controller.Move (velocity);
 	}
 
 	void Order() {
