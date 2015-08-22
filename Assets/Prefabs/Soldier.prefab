@@ -14,7 +14,7 @@ GameObject:
   - 114: {fileID: 11411332}
   - 114: {fileID: 11437048}
   - 143: {fileID: 14351868}
-  - 114: {fileID: 11436884}
+  - 135: {fileID: 13560624}
   m_Layer: 0
   m_Name: Soldier
   m_TagString: Soldier
@@ -29,7 +29,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 107116}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.0699987, y: -.223258972, z: -.525625944}
+  m_LocalPosition: {x: -.699999988, y: 1, z: 1.64999998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -44,7 +44,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 7f53af77999f9ab41b88a914f05b1f69, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -75,7 +75,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: .200000003, y: .200000003, z: .200000003}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &11411332
 MonoBehaviour:
@@ -88,19 +88,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68354eb3356bd3e42a4ea476aee38302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myTrans: {fileID: 0}
   ordersList: []
---- !u!114 &11436884
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 107116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2af288bf2d35d71478ba5fbc59186ba6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 10
 --- !u!114 &11437048
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -112,19 +101,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41442097342fef6478b1c5dfd41f54b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthManager: {fileID: 11436884}
   moveSpeed: 5
-  reloadTime: 5
-  cReload: 0
-  aimTime: 5
-  cAim: 0
-  bulletPrefab: {fileID: 100686, guid: 98af183d40fb9f44ca00eb5024277692, type: 2}
-  team: 1
   cOrder: 
+  team: 1
+  intBeforeAct: 0
+  moveDirection: {x: 0, y: 0, z: 0}
   pheromoneDirection: 
   pheromoneQuaternion: []
   pheromoneAngles: []
   pheromoneAngle: {x: 0, y: 0, z: 0}
+--- !u!135 &13560624
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 107116}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 20
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!143 &14351868
 CharacterController:
   m_ObjectHideFlags: 1
@@ -150,17 +147,29 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 0}
-      propertyPath: bulletPrefab
-      value: 
-      objectReference: {fileID: 100686, guid: 98af183d40fb9f44ca00eb5024277692, type: 2}
-    - target: {fileID: 0}
-      propertyPath: health
-      value: 10
+      propertyPath: m_Size.x
+      value: .200000003
       objectReference: {fileID: 0}
     - target: {fileID: 0}
-      propertyPath: healthManager
+      propertyPath: m_Size.y
+      value: .200000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Size.z
+      value: .200000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 11436884}
+      objectReference: {fileID: 2100000, guid: 7f53af77999f9ab41b88a914f05b1f69, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_Radius
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 107116}

@@ -1,53 +1,48 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &117742
+--- !u!1 &169292
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 450402}
-  - 114: {fileID: 11428130}
+  - 4: {fileID: 489672}
+  - 114: {fileID: 11434696}
   m_Layer: 0
-  m_Name: Army
+  m_Name: EnemyArmy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &450402
+--- !u!4 &489672
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 117742}
+  m_GameObject: {fileID: 169292}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.26602507, y: 8.01978397, z: 1.92534029}
+  m_LocalPosition: {x: -50.5933075, y: .5, z: 186.919357}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11428130
+--- !u!114 &11434696
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 117742}
+  m_GameObject: {fileID: 169292}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 325ab4ddf24255246a8c220790d3859d, type: 3}
+  m_Script: {fileID: 11500000, guid: fb7725181b5d0cf4f8e3cecf971a1cb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  number: 250
   soldierList: []
   soldierComponentList: []
-  condition: 0
-  evaluator: 0
-  groupe: 0
-  done: 0
-  prefab: {fileID: 107116, guid: 747aa81607b2c66438c02cd269f0573f, type: 2}
-  number: 250
-  newOrder: {fileID: 0}
+  prefab: {fileID: 170764, guid: 16917accf133e794695990b09f3a0831, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -56,22 +51,10 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 0}
-      propertyPath: soldierList.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
       propertyPath: prefab
       value: 
-      objectReference: {fileID: 107116, guid: 747aa81607b2c66438c02cd269f0573f, type: 2}
-    - target: {fileID: 0}
-      propertyPath: done
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: number
-      value: 250
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 170764, guid: 16917accf133e794695990b09f3a0831, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 117742}
+  m_RootGameObject: {fileID: 169292}
   m_IsPrefabParent: 1
