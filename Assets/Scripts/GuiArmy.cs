@@ -65,11 +65,12 @@ public class GuiArmy : MonoBehaviour {
 			condition = false;
 			evaluator = false;
 			done = false;
-			foreach(SoldierController sold in soldierComponentList)
+			for(int i = 0; i < soldierComponentList.Count; i++)
 			{
-				newOrder.toEvaluate.myObj = sold.GetComponent<GameObject>();
-				sold.ordersList.Add(newOrder);
+				newOrder.toEvaluate.myObj = soldierList[i];
+				soldierComponentList[i].ordersList.Add(newOrder);
 			}
+
 			newOrder = null;
 		}
 		else if (condition) {
