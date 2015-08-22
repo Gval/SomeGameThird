@@ -12,6 +12,4 @@ public abstract class Condition  : MonoBehaviour {
 	public string taging;
 
 	public abstract bool CompareObject();
-
-	public abstract void OnTriggerEnter (Collider collider);
 }

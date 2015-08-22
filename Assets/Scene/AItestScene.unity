@@ -306,27 +306,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 440276, guid: 747aa81607b2c66438c02cd269f0573f, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 107116, guid: 747aa81607b2c66438c02cd269f0573f, type: 2}
       propertyPath: m_Name
       value: Soldier (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 13560624, guid: 747aa81607b2c66438c02cd269f0573f, type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 13560624, guid: 747aa81607b2c66438c02cd269f0573f, type: 2}
-      propertyPath: m_Radius
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 13560624, guid: 747aa81607b2c66438c02cd269f0573f, type: 2}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6590280, guid: 747aa81607b2c66438c02cd269f0573f, type: 2}
-      propertyPath: m_IsTrigger
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 747aa81607b2c66438c02cd269f0573f, type: 2}

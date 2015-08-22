@@ -6,14 +6,14 @@ public class SoldierController : MonoBehaviour {
 
 	private SoldierPawn soldierPawn;
 
-	public Collider myTrans;
+	private Collider myTrans;
 
 	[SerializeField]
 	public List<Order> ordersList;
 
 	void Start () {
 		soldierPawn = GetComponent<SoldierPawn> ();
-		myTrans = this.transform.GetComponent<Collider>();
+		myTrans = this.transform.GetComponent<SphereCollider>();
 	}
 
 	void Update () {
@@ -55,5 +55,13 @@ public class SoldierController : MonoBehaviour {
 			break;
 		}
 	}
+
+	void OnTriggerEnter (Collider collider) {
+		Debug.Log ("BITCH");
+		if (collider.tag == "Enemy") {
+			//objToEvaluate = collider.GetComponent<GameObject>();
+		}
+	}
+
 
 }

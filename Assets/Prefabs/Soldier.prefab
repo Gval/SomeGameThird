@@ -15,6 +15,7 @@ GameObject:
   - 114: {fileID: 11437048}
   - 143: {fileID: 14351868}
   - 135: {fileID: 13560624}
+  - 114: {fileID: 11465902}
   m_Layer: 0
   m_Name: Soldier
   m_TagString: Soldier
@@ -29,7 +30,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 107116}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.699999988, y: 1, z: 1.64999998}
+  m_LocalPosition: {x: -38.3510513, y: .5, z: 97.29776}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -72,7 +73,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 107116}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: .200000003, y: .200000003, z: .200000003}
@@ -88,7 +89,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68354eb3356bd3e42a4ea476aee38302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myTrans: {fileID: 0}
   ordersList: []
 --- !u!114 &11437048
 MonoBehaviour:
@@ -101,15 +101,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41442097342fef6478b1c5dfd41f54b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthManager: {fileID: 0}
   moveSpeed: 5
-  cOrder: 
+  reloadTime: 5
+  cReload: 0
+  aimTime: 5
+  cAim: 0
+  bulletPrefab: {fileID: 0}
   team: 1
+  cOrder: 
   intBeforeAct: 0
   moveDirection: {x: 0, y: 0, z: 0}
   pheromoneDirection: 
   pheromoneQuaternion: []
   pheromoneAngles: []
   pheromoneAngle: {x: 0, y: 0, z: 0}
+--- !u!114 &11465902
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 107116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5c81787389cf8d4d93ba90bbf1b3939, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &13560624
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -117,7 +134,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 107116}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 20
@@ -169,6 +186,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Radius
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
