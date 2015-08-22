@@ -16,7 +16,6 @@ public class Commander : MonoBehaviour {
 	}
 
 	void Update () {
-	
 		Move ();
 		Order ();
 	}

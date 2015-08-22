@@ -49,7 +49,7 @@ public class SoldierPawn : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		switch (cOrder) {
+		/*switch (cOrder) {
 		case ("March") :
 			March ();
 			break;
@@ -64,7 +64,7 @@ public class SoldierPawn : MonoBehaviour {
 			break;
 		default :
 			break;
-		}
+		}*/
 	}
 
 	public void SetOrder(string order) {

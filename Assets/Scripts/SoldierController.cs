@@ -13,8 +13,8 @@ public class SoldierController : MonoBehaviour {
 		soldierPawn = GetComponent<SoldierPawn> ();
 	}
 
-	void Update () {
-		if (!soldierPawn.isActing ()) {
+	void FixedUpdate () {
+		if (soldierPawn.isActing ()) {
 			SendMessage(Process());
 		}
 	}
