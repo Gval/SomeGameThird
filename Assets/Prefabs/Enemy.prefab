@@ -11,8 +11,28 @@ GameObject:
   - 33: {fileID: 3305972}
   - 65: {fileID: 6524918}
   - 23: {fileID: 2380264}
+  - 114: {fileID: 11467754}
+  - 114: {fileID: 11490474}
+  - 114: {fileID: 11482538}
   m_Layer: 0
   m_Name: Enemy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &190764
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 436150}
+  - 114: {fileID: 11402758}
+  - 135: {fileID: 13564976}
+  m_Layer: 0
+  m_Name: PheromoneManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,10 +45,23 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170764}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -50.5567627, y: 7.04092503, z: 180.257172}
+  m_LocalPosition: {x: -5.25, y: 1.13999999, z: -3.77999997}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 436150}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!4 &436150
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 190764}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 429986}
   m_RootOrder: 0
 --- !u!23 &2380264
 MeshRenderer:
@@ -72,6 +105,85 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &11402758
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 190764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 655cffd6c985fcc4785463f54fd4eb23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemies: []
+  team: 0
+--- !u!114 &11467754
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 170764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2af288bf2d35d71478ba5fbc59186ba6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 10
+--- !u!114 &11482538
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 170764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68354eb3356bd3e42a4ea476aee38302, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myTrans: {fileID: 0}
+  ordersList: []
+--- !u!114 &11490474
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 170764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41442097342fef6478b1c5dfd41f54b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthManager: {fileID: 0}
+  moveSpeed: 5
+  reloadTime: 5
+  cReload: 0
+  aimTime: 5
+  cAim: 0
+  bulletPrefab: {fileID: 0}
+  team: 2
+  redFlag: 0
+  greenFlag: 0
+  blueFlag: 0
+  cOrder: 
+  intBeforeAct: 0
+  moveDirection: {x: 0, y: 0, z: 0}
+  pheromoneDirection: 
+  pheromoneQuaternion: []
+  pheromoneAngles: []
+  pheromoneAngle: {x: 0, y: 0, z: 0}
+--- !u!135 &13564976
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 190764}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &100100000
 Prefab:

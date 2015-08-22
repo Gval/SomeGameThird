@@ -20,10 +20,11 @@ public class SoldierController : MonoBehaviour {
 
 		if (!soldierPawn.isActing () && myTrans.isTrigger == false) {
 			myTrans.isTrigger = true;
-		} else if (!soldierPawn.isActing () && myTrans.isTrigger == true) {
+		} /*else if (!soldierPawn.isActing () && myTrans.isTrigger == true) {
 			FUCK();
 			myTrans.isTrigger = false;
-		}
+		}*/
+		FlagProcess ();
 	}
 
 	private string Process() {
@@ -39,6 +40,12 @@ public class SoldierController : MonoBehaviour {
 		} 
 
 		return result;
+	}
+
+	private void FlagProcess() {
+		if (soldierPawn.redFlag >= 5) {
+			soldierPawn.PrepareShoot();
+		}
 	}
 
 	public void FUCK()

@@ -6,10 +6,11 @@ public class PheromoneManager : MonoBehaviour {
 
 	private SoldierPawn pawn;
 	public List<SoldierPawn> enemies = new List<SoldierPawn> ();
+	public int team;
 
 	// Use this for initialization
 	void Start () {
-		pawn = GetComponent<SoldierPawn> ();
+		pawn = GetComponentInParent<SoldierPawn> ();
 	}
 	
 	// Update is called once per frame
@@ -22,12 +23,15 @@ public class PheromoneManager : MonoBehaviour {
 
 	void SendPheromone(){
 		foreach (SoldierPawn enemie in enemies) {
-			enemie.ReceivePheromone (pawn);
+			if (enemie.team != team) {
+				enemie.ReceivePheromone (pawn);
+			}
 		}
 	}
 
 	void OnTriggerEnter(Collider collider) {
-		if (collider.tag == "Soldier" && collider.GetComponent<SoldierPawn> ().team != pawn.team) {
+		Debug.Log ("colli : " + collider.name);
+		if (collider.tag == "Soldier") {
 			enemies.Add(collider.GetComponent<SoldierPawn>());
 		}
 	}

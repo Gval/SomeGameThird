@@ -21,6 +21,9 @@ public class SoldierPawn : MonoBehaviour {
 
 	public int team = 1;
 
+	public float redFlag;
+	public float greenFlag;
+	public float blueFlag;
 
 	public string cOrder = "";
 
@@ -168,6 +171,7 @@ public class SoldierPawn : MonoBehaviour {
 	}
 
 	public void PrepareShoot() {
+		intBeforeAct = 200;
 		if (!isReloaded ()) {
 			Reload();
 			return;
@@ -182,15 +186,16 @@ public class SoldierPawn : MonoBehaviour {
 	}
 
 	public void ReceivePheromone(SoldierPawn emitter) {
+		Debug.Log ("receive from : " + emitter.name);
 		pheromoneAngle = Quaternion.LookRotation (emitter.transform.position -  transform.position).eulerAngles;
 		if (pheromoneAngle.y > 331 && pheromoneAngle.y < 360 || pheromoneAngle.y >= 0 && pheromoneAngle.y < 30) {
-			pheromoneDirection[0] += 2;
+			pheromoneDirection[0] += 1;
 		}
 		if (pheromoneAngle.y > 31 && pheromoneAngle.y < 60) {
-			pheromoneDirection[1] += 2;
+			pheromoneDirection[1] += 1;
 		}
 		if (pheromoneAngle.y > 61 && pheromoneAngle.y < 120) {
-			pheromoneDirection[2] += 2;
+			pheromoneDirection[2] += 1;
 		}
 		if (pheromoneAngle.y > 121 && pheromoneAngle.y < 150) {
 			pheromoneDirection[3] += 1;
@@ -208,15 +213,36 @@ public class SoldierPawn : MonoBehaviour {
 		}
 	}
 
+	public void ReceiveFlagPheromone(string type) {
+		Debug.Log ("Receive flag pheromone");
+		switch (type) {
+		case "red":
+			redFlag++;
+			break;
+		case "blue":
+			blueFlag++;
+			break;
+		case "green":
+			greenFlag++;
+			break;
+		}
+	}
+
 	public Vector3 FindEnemyDirection() {
-		int max;
-		max = 0;
+		int maxIndex;
+		int maxValue;
+
+		maxIndex = 0;
+		maxValue = pheromoneDirection [maxIndex];
 		for (int index = 7; index > 0; index--) {
-			if (pheromoneDirection[index] > max) {
-				max = index;
+			if (pheromoneDirection[index] > maxValue) {
+				Debug.Log("index : " + index + " - old : " + maxValue + " - new : " + pheromoneDirection[index]);
+				maxIndex = index;
+				maxValue = pheromoneDirection[index];
 			}
 		}
-		return Quaternion.AngleAxis (pheromoneAngles [max], Vector3.up) * Vector3.forward;
+		Debug.Log ("Enemy direction is : " + maxIndex);
+		return Quaternion.AngleAxis (pheromoneAngles [maxIndex], Vector3.up) * Vector3.forward;
 	}
 
 	public bool isActing() {

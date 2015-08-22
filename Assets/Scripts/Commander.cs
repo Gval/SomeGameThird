@@ -5,14 +5,19 @@ using System.Collections.Generic;
 public class Commander : MonoBehaviour {
 
 	private CharacterController controller;
+	private SignalSender sender;
 	public List<SoldierPawn> soldiers = new List<SoldierPawn>();
+
 
 	[SerializeField]
 	public float	moveSpeed = 1.0f;
 
+	public int		team = 1;
+
 	// Use this for initialization
 	void Start () {
 		controller = GetComponent<CharacterController> ();
+		sender = GetComponentInChildren<SignalSender> ();
 	}
 
 	void Update () {
@@ -23,13 +28,9 @@ public class Commander : MonoBehaviour {
 	void Move() {
 
 		Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
-		Debug.Log ("direction : " + direction);
 		Vector3 velocity = direction * moveSpeed;
-		Debug.Log ("moveSpeed : " + moveSpeed);
 		velocity = transform.TransformDirection (velocity);
-		Debug.Log ("velocity : " + moveSpeed);
 		transform.position += velocity;
-		//controller.Move (velocity);
 	}
 
 	void Order() {
@@ -74,6 +75,10 @@ public class Commander : MonoBehaviour {
 				Debug.Log("Aim");
 				pawn.SetOrder ("Aim");
 			}
+		}
+		if (Input.GetKeyDown ("r")) {
+			Debug.Log("Send Red");
+			sender.SendFlag(team, "red");
 		}
 	}
 
