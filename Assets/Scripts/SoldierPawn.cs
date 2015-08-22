@@ -36,6 +36,7 @@ public class SoldierPawn : MonoBehaviour {
 
 	public Vector3 moveDirection;
 
+	public float pheromoneCleanRepeat;
 
 	public List<int> pheromoneDirection = new List<int> ();
 	public List<Quaternion> pheromoneQuaternion = new List<Quaternion> ();
@@ -44,6 +45,7 @@ public class SoldierPawn : MonoBehaviour {
 
 	// if true the character is doing something
 	bool act = false;
+	public bool isLined = false;
 
 	// Use this for initialization
 	void Start () {
@@ -53,6 +55,7 @@ public class SoldierPawn : MonoBehaviour {
 		for (int i = 7; i >= 0 ; i--) {
 			pheromoneDirection.Add (0);
 		}
+
 		pheromoneQuaternion.Add (Quaternion.AngleAxis(0, Vector3.up)); 
 		pheromoneQuaternion.Add (Quaternion.AngleAxis(45, Vector3.up)); 
 		pheromoneQuaternion.Add (Quaternion.AngleAxis(90, Vector3.up)); 
@@ -61,6 +64,8 @@ public class SoldierPawn : MonoBehaviour {
 		pheromoneQuaternion.Add (Quaternion.AngleAxis(225, Vector3.up));
 		pheromoneQuaternion.Add (Quaternion.AngleAxis(270, Vector3.up));
 		pheromoneQuaternion.Add (Quaternion.AngleAxis(315, Vector3.up));
+
+		InvokeRepeating ("CleanPheromone", 0.1f, pheromoneCleanRepeat);
 
 		pheromoneAngles.Add (0); 
 		pheromoneAngles.Add (45); 
@@ -167,7 +172,7 @@ public class SoldierPawn : MonoBehaviour {
 	public void Shoot() {
 		cReload = 0;
 		cAim = 0;
-		GameObject bullet = (GameObject) Instantiate(bulletPrefab, transform.position + transform.forward * 2, transform.rotation);
+		Instantiate(bulletPrefab, transform.position + transform.forward * 2, transform.rotation);
 	}
 
 	public void PrepareShoot() {
@@ -272,5 +277,13 @@ public class SoldierPawn : MonoBehaviour {
 	public void Tirer()
 	{
 
+	}
+
+	public void CleanPheromone() {
+		for (int i = 7 ; i > 0 ; i--) {
+			if (pheromoneDirection[i] > 0) {
+				pheromoneDirection[i]--;
+			}
+		}
 	}
 }

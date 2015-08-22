@@ -14,6 +14,7 @@ GameObject:
   - 114: {fileID: 11467754}
   - 114: {fileID: 11490474}
   - 114: {fileID: 11482538}
+  - 135: {fileID: 13546282}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -45,7 +46,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170764}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.25, y: 1.13999999, z: -3.77999997}
+  m_LocalPosition: {x: -9.69999981, y: 1.13999999, z: -8.80000019}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 436150}
@@ -119,6 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemies: []
   team: 0
+  pheromoneRate: 3
 --- !u!114 &11467754
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -142,7 +144,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68354eb3356bd3e42a4ea476aee38302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myTrans: {fileID: 0}
   ordersList: []
 --- !u!114 &11490474
 MonoBehaviour:
@@ -169,10 +170,24 @@ MonoBehaviour:
   cOrder: 
   intBeforeAct: 0
   moveDirection: {x: 0, y: 0, z: 0}
+  pheromoneCleanRepeat: 0
   pheromoneDirection: 
   pheromoneQuaternion: []
   pheromoneAngles: []
   pheromoneAngle: {x: 0, y: 0, z: 0}
+  isLined: 0
+--- !u!135 &13546282
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 170764}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: .5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &13564976
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -183,7 +198,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 10
+  m_Radius: 20
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &100100000
 Prefab:

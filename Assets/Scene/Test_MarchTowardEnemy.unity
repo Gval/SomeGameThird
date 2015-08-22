@@ -224,7 +224,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 429986, guid: 16917accf133e794695990b09f3a0831, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 170764, guid: 16917accf133e794695990b09f3a0831, type: 2}
       propertyPath: m_Name
@@ -254,6 +254,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemies: []
   team: 0
+  pheromoneRate: 0
 --- !u!1 &893711873
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,10 +473,6 @@ Prefab:
       propertyPath: m_Name
       value: Enemy (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 13564976, guid: 16917accf133e794695990b09f3a0831, type: 2}
-      propertyPath: m_Radius
-      value: 20
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 16917accf133e794695990b09f3a0831, type: 2}
   m_IsPrefabParent: 0
@@ -566,7 +563,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 429986, guid: 16917accf133e794695990b09f3a0831, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 170764, guid: 16917accf133e794695990b09f3a0831, type: 2}
       propertyPath: m_Name
@@ -616,7 +613,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 429986, guid: 16917accf133e794695990b09f3a0831, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 170764, guid: 16917accf133e794695990b09f3a0831, type: 2}
       propertyPath: m_Name
@@ -717,6 +714,22 @@ Prefab:
     - target: {fileID: 430346, guid: 747aa81607b2c66438c02cd269f0573f, type: 2}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 440276, guid: 747aa81607b2c66438c02cd269f0573f, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1.15999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 440276, guid: 747aa81607b2c66438c02cd269f0573f, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11437048, guid: 747aa81607b2c66438c02cd269f0573f, type: 2}
+      propertyPath: pheromoneCleanRepeat
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 440276, guid: 747aa81607b2c66438c02cd269f0573f, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -.449999988
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 747aa81607b2c66438c02cd269f0573f, type: 2}
