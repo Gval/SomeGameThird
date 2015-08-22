@@ -7,7 +7,10 @@ public class AllEnums {
 	{
 		Marcher,
 		Feu,
-		Courrir
+		Courrir,
+		Wait,
+		Stop,
+		Attaque
 	};
 
 	public enum ObjectsEnums
@@ -27,8 +30,7 @@ public class AllEnums {
 	public enum TypeConditionEnums
 	{
 		Distance,
-		Health,
-		Courrir
+		Health
 	};
 
 }

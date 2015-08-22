@@ -24,6 +24,9 @@ public class GuiArmy : MonoBehaviour {
 	[SerializeField]
 	public GameObject prefab;
 
+	[SerializeField]
+	public int  number = 250;
+
 	GameObject thing;
 
 	public Order newOrder;
@@ -35,8 +38,8 @@ public class GuiArmy : MonoBehaviour {
 
 	void Spawn() {
 
-		for (int i = 0; i < 1000; i++) {
-			float num = Random.Range(0, 55);
+		for (int i = 0; i < number; i++) {
+			float num = Random.Range(0, 125);
 			Vector3 pos = RandomCircle(this.transform.localPosition, num);
 			soldierList.Add(Instantiate(prefab, pos, this.transform.localRotation) as GameObject);
 		}
@@ -65,8 +68,8 @@ public class GuiArmy : MonoBehaviour {
 			foreach(SoldierController sold in soldierComponentList)
 			{
 				sold.ordersList.Add(newOrder);
-				newOrder = null;
 			}
+			newOrder = null;
 		}
 		else if (condition) {
 			if(GUI.Button(new Rect(15, 50, 150, 30), AllEnums.ObjectsEnums.Enemy.ToString()))
@@ -85,7 +88,7 @@ public class GuiArmy : MonoBehaviour {
 			if(GUI.Button(new Rect(15, 50, 150, 30), AllEnums.messagesEnums.Marcher.ToString()))
 			{
 				newOrder = gameObject.AddComponent<MoveOrder>();
-				newOrder.resultMessage = AllEnums.messagesEnums.Marcher.ToString();
+				newOrder.resultMessage = AllEnums.messagesEnums.Courrir.ToString();
 				evaluator = true;
 			}
 		}

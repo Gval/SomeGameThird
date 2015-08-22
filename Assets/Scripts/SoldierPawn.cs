@@ -12,10 +12,13 @@ public class SoldierPawn : MonoBehaviour {
 
 	public int team = 1;
 
+	public int intBeforeAct = 0;
+
+	public Vector3 moveDirection;
+
 	public List<int> pheromoneDirection = new List<int> ();
 	public List<Quaternion> pheromoneQuaternion = new List<Quaternion> ();
 	public List<float> pheromoneAngles = new List<float> ();
-
 	public Vector3 pheromoneAngle;
 
 	// if true the character is doing something
@@ -49,7 +52,11 @@ public class SoldierPawn : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		/*switch (cOrder) {
+
+		intBeforeAct--;
+
+	switch (cOrder) {
+
 		case ("March") :
 			March ();
 			break;
@@ -60,21 +67,29 @@ public class SoldierPawn : MonoBehaviour {
 			Stop();
 			break;
 		case ("Speak"):
-			Speak();
+			moveRandomly();
+			//Speak();
+			break;
+		case ("Wait") :
+			moveRandomly();
 			break;
 		default :
 			break;
-		}*/
+		}
+
+		if (act == true && intBeforeAct <= 0) {
+			act = false;
+		}
 	}
 
 	public void SetOrder(string order) {
 		cOrder = order;
 	}
 
-	public void Speak() {
+	/*public void Speak() {
 		Debug.Log ("Oy Mate");
 		Stop ();
-	}
+	}*/
 
 	public void March() {
 		Vector3 velocity = transform.forward * moveSpeed;
@@ -136,5 +151,21 @@ public class SoldierPawn : MonoBehaviour {
 
 	public void OnGUI() {
 		GUI.Label(new Rect(300, team * 50, 200, 100), "angle pheromone : " + pheromoneAngle.y);
+	}
+
+	public void Wait() {
+		act = true;
+		intBeforeAct = Random.Range(25,75);
+		cOrder = "Wait";
+		moveDirection = new Vector3(Random.Range(-359, 359),0,Random.Range(-359, 359)).normalized;
+	}
+
+	public void moveRandomly() {
+		transform.position += moveDirection * 0.1f;
+	}
+
+	public void Courrir()
+	{
+		cOrder = AllEnums.messagesEnums.Courrir.ToString ();
 	}
 }

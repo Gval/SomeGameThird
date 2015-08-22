@@ -13,15 +13,15 @@ public class SoldierController : MonoBehaviour {
 		soldierPawn = GetComponent<SoldierPawn> ();
 	}
 
-	void FixedUpdate () {
-		if (soldierPawn.isActing ()) {
+	void Update () {
+		if (!soldierPawn.isActing ()) {
 			SendMessage(Process());
 		}
 	}
 
 	private string Process() {
 
-		string result = "Speak";
+		string result = "Wait";
 
 		for(int i = 0; i < ordersList.Count; i++)
 		{
