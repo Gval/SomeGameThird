@@ -43,6 +43,12 @@ public class Commander : MonoBehaviour {
 		}
 		if (Input.GetKeyDown ("3")) {
 			foreach (SoldierPawn pawn in soldiers) {
+				Debug.Log("MarchTowardEnemy");
+				pawn.SetOrder ("MarchTowardEnemy");
+			}
+		}
+		if (Input.GetKeyDown ("4")) {
+			foreach (SoldierPawn pawn in soldiers) {
 				Debug.Log("Speak");
 				pawn.SetOrder ("Speak");
 			}
@@ -51,7 +57,9 @@ public class Commander : MonoBehaviour {
 
 	void OnTriggerEnter(Collider collider) {
 		if (collider.tag == "Soldier" && collider.GetComponent<SoldierPawn>().team == 1) {
-			soldiers.Add(collider.GetComponent<SoldierPawn>());
+			if (!soldiers.Contains(collider.GetComponent<SoldierPawn>())) {
+				soldiers.Add(collider.GetComponent<SoldierPawn>());
+			}
 		}
 	}
 
