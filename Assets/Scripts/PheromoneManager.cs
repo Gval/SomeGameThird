@@ -5,13 +5,14 @@ using System.Collections.Generic;
 public class PheromoneManager : MonoBehaviour {
 
 	private SoldierPawn pawn;
-	public List<SoldierPawn> enemies = new List<SoldierPawn> ();
+	public List<SoldierPawn> others = new List<SoldierPawn> ();
 	public int team;
 	public float pheromoneRate;
 
 	// Use this for initialization
 	void Start () {
 		pawn = GetComponentInParent<SoldierPawn> ();
+		team = pawn.team;
 		InvokeRepeating ("SendPheromone", 1, pheromoneRate);
 	}
 	
@@ -24,22 +25,22 @@ public class PheromoneManager : MonoBehaviour {
 	}
 
 	void SendPheromone(){
-		Debug.Log("Send pheromone");
-		foreach (SoldierPawn enemie in enemies) {
-			if (enemie.team != team) {
-				enemie.ReceivePheromone (pawn);
+		foreach (SoldierPawn other in others) {
+			if (other.team != team) {
+				other.ReceivePheromone(pawn.transform, other.enemyDirection);
+			} else if (other.team == team) {
+				other.ReceivePheromone(pawn.transform, other.friendDirection);
 			}
 		}
 	}
 
 	void OnTriggerEnter(Collider collider) {
-		Debug.Log ("colli : " + collider.name);
 		if (collider.tag == "Soldier") {
-			enemies.Add(collider.GetComponent<SoldierPawn>());
+			others.Add(collider.GetComponent<SoldierPawn>());
 		}
 	}
 
 	void OnTriggerExit(Collider collider) {
-		enemies.Remove (collider.GetComponent<SoldierPawn>());
+		others.Remove (collider.GetComponent<SoldierPawn>());
 	}
 }

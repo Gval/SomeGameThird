@@ -53,8 +53,8 @@ public class Commander : MonoBehaviour {
 		}
 		if (Input.GetKeyDown ("4")) {
 			foreach (SoldierPawn pawn in soldiers) {
-				Debug.Log("Speak");
-				pawn.SetOrder ("Speak");
+				Debug.Log("MarchTowardFriend");
+				pawn.SetOrder ("MarchTowardFriend");
 			}
 		}
 		if (Input.GetKeyDown ("5")) {
