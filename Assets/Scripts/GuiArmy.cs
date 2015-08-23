@@ -19,7 +19,7 @@ public class GuiArmy : MonoBehaviour {
 	public bool groupe = false;
 
 	[SerializeField]
-	public bool number = false;
+	public bool direction = false;
 
 	[SerializeField]
 	public bool done = false;
@@ -46,23 +46,16 @@ public class GuiArmy : MonoBehaviour {
 	}
 
 	void Spawn() {
+		
 
-		SingletonLeader sL = SingletonLeader.Instance;
 
-		for (int i = 0; i < 10; i++) {
-			float num = Random.Range(0, range);
-			Vector3 pos = RandomCircle(this.transform.localPosition, num);
-			GameObject lead = Instantiate(prefabLeader, pos, this.transform.localRotation) as GameObject;
-			soldierList.Add(lead);
-			sL.leaderPlayerList.Add(lead);
-			for (int y = 0; y < (numberRange/10); y++) {
+			for (int y = 0; y < numberRange; y++) {
 				float num2 = Random.Range(0, range);
-				Vector3 pos2 = RandomCircle(this.transform.localPosition, num);
+				Vector3 pos2 = RandomCircle(this.transform.localPosition, range);
 				GameObject s = Instantiate(prefab, pos2, this.transform.localRotation) as GameObject;
+				SoldierPawn p = s.GetComponent<SoldierPawn>();
 				soldierList.Add(s);
-				Leader l = lead.GetComponent<Leader>();
-				l.soldierList.Add(s);
-			}
+
 		}
 	
 
@@ -97,33 +90,14 @@ public class GuiArmy : MonoBehaviour {
 			}
 
 			newOrder = null;
-		} else if (number) {
-			if(GUI.Button(new Rect(15, 50, 150, 30), "20"))
-			{
-				newOrder.toEvaluate.numberToEvaluate = 20;
-				done = true;
-			}
-			if(GUI.Button(new Rect(15, 50, 150, 30), "15"))
-			{
-				newOrder.toEvaluate.numberToEvaluate = 15;
-				done = true;
-			}
-			if(GUI.Button(new Rect(15, 50, 150, 30), "10"))
-			{
-				newOrder.toEvaluate.numberToEvaluate = 10;
-				done = true;
-			}
-			if(GUI.Button(new Rect(15, 50, 150, 30), "5"))
-			{
-				newOrder.toEvaluate.numberToEvaluate = 5;
-				done = true;
-			}
+		} else if (direction) {
+
 		}
 		else if (condition) {
 			if(GUI.Button(new Rect(15, 50, 150, 30), AllEnums.ObjectsEnums.Enemy.ToString()))
 			{
 				newOrder.toEvaluate.taging = AllEnums.ObjectsEnums.Enemy.ToString();
-				number = true;
+				direction = true;
 			}
 		} else if (evaluator) {
 			if(GUI.Button(new Rect(15,50,150,30), AllEnums.TypeConditionEnums.Distance.ToString()))

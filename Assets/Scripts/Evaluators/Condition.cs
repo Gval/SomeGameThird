@@ -18,5 +18,7 @@ public abstract class Condition  : MonoBehaviour {
 
 	public string taging;
 
+	public Vector3 target;
+
 	public abstract bool CompareObject();
 }

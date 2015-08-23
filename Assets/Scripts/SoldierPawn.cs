@@ -218,6 +218,18 @@ public class SoldierPawn : MonoBehaviour {
 		}
 	}
 
+	public void OnGUI() {
+		GUI.Label(new Rect(300, team * 50, 400, 400), "angle pheromone : " + pheromoneAngle.y);
+	}
+	
+	public void CleanPheromone() {
+		for (int i = 7 ; i > 0 ; i--) {
+			if (pheromoneDirection[i] > 0) {
+				pheromoneDirection[i]--;
+			}
+		}
+	}
+
 	public void ReceiveFlagPheromone(string type) {
 		Debug.Log ("Receive flag pheromone");
 		switch (type) {
@@ -250,13 +262,7 @@ public class SoldierPawn : MonoBehaviour {
 		return Quaternion.AngleAxis (pheromoneAngles [maxIndex], Vector3.up) * Vector3.forward;
 	}
 
-	public bool isActing() {
-		return act;
-	}
 
-	public void OnGUI() {
-		GUI.Label(new Rect(300, team * 50, 400, 400), "angle pheromone : " + pheromoneAngle.y);
-	}
 
 	public void Wait() {
 		act = true;
@@ -279,11 +285,14 @@ public class SoldierPawn : MonoBehaviour {
 
 	}
 
-	public void CleanPheromone() {
-		for (int i = 7 ; i > 0 ; i--) {
-			if (pheromoneDirection[i] > 0) {
-				pheromoneDirection[i]--;
-			}
-		}
+	public void SetTarget(Vector3 target)
+	{
+
 	}
+
+	public bool isActing() {
+		return act;
+	}
+	
+
 }

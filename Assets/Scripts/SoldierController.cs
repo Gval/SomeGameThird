@@ -6,7 +6,7 @@ public class SoldierController : MonoBehaviour {
 
 	private Leader soldierPawn;
 
-	private 
+	private SoldierPawn body;
 
 	private Collider myTrans;
 
@@ -15,12 +15,12 @@ public class SoldierController : MonoBehaviour {
 
 	void Start () {
 		soldierPawn = GetComponent<Leader> ();
-
+		body = GetComponent<SoldierPawn> ();
 	}
 
 	void Update () {
 
-		if (!soldierPawn.isActing () ) {
+		if (!body.isActing()) {
 			FUCK();
 		}
 	}
@@ -45,17 +45,20 @@ public class SoldierController : MonoBehaviour {
 		switch (Process ()) {
 		case "Blue" :
 			foreach (SoldierPawn pawn in soldierPawn.soldierList) {
-				pawn.SetOrder (ordersList[0].resultMessage, soldierPawn);
+				pawn.SetTarget(ordersList[0].toEvaluate.target);
+				pawn.SetOrder (ordersList[0].resultMessage);
 			}
 			break;
 		case "Red" :
 			foreach (SoldierPawn pawn in soldierPawn.soldierList) {
-				pawn.SetOrder (ordersList[1].resultMessage, );
+				pawn.SetTarget(ordersList[1].toEvaluate.target);
+				pawn.SetOrder (ordersList[1].resultMessage);
 			}
 			break;
 		case "Yellow" :
 			foreach (SoldierPawn pawn in soldierPawn.soldierList) {
-				pawn.SetOrder (ordersList[2].resultMessage, );
+				pawn.SetTarget(ordersList[2].toEvaluate.target);
+				pawn.SetOrder (ordersList[2].resultMessage);
 			}
 			break;
 		}

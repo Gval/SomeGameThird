@@ -6,26 +6,26 @@ public class SingletonLeader : MonoBehaviour {
 
 	public List<GameObject> leaderPlayerList;
 
-	public List<GameObject> leaderArmyList;
+	public List<GameObject> leaderArmyENemyList;
 
 	private static SingletonLeader instance;
 
-	public static SingletonLeader Instance
+	public static SingletonLeader Instance()
 	{
-		get 
+
+		if (instance == null)
 		{
-			if (instance == null)
-			{
-				instance = new SingletonLeader();
-			}
-			return instance;
+			instance = new SingletonLeader();
 		}
+
+		return instance;
+
 	}
 
 	public Transform getNearestLeader(List<GameObject> listToEvaluate, Transform  myself)
 	{
-		Transform pos;
-		int magnitude;
+		Transform pos = null;
+		float magnitude = 0;
 		for (int i = 0; i < listToEvaluate.Count; i++) {
 			if((myself.position - listToEvaluate[i].transform.position).magnitude < magnitude)
 			{
@@ -33,7 +33,7 @@ public class SingletonLeader : MonoBehaviour {
 				pos = listToEvaluate[i].transform;
 			}
 		}
-		if(pos)
+		if(pos != null)
 		{
 			return pos;
 		}
@@ -41,7 +41,7 @@ public class SingletonLeader : MonoBehaviour {
 		return null;
 	}
 
-	public Transform getBarcenterLeader(List<GameObject> listToEvaluate)
+	public Vector3 getBarcenterLeader(List<GameObject> listToEvaluate)
 	{
 		Vector3 pos = new Vector3(0,0,0);
 
@@ -54,6 +54,14 @@ public class SingletonLeader : MonoBehaviour {
 		return pos;
 	}
 
+	public Transform getRandomLeader(List<GameObject> listToEvaluate)
+	{
+		return null;
+	}
 
+	public Transform getLowestNumberSquad()
+	{
+		return null;
+	}
 
 }

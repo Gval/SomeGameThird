@@ -5,6 +5,6 @@ using System.Collections.Generic;
 public class Leader : MonoBehaviour {
 
 	[SerializeField]
-	public List<GameObject> soldierList;
+	public List<SoldierPawn> soldierList;
 	
 }
