@@ -38,7 +38,8 @@ public class SoldierPawn : MonoBehaviour {
 
 	public Vector3 moveDirection;
 
-	public float pheromoneCleanRepeat;
+	[SerializeField]
+	private float pheromoneCleanRepeat;
 
 	public List<int> enemyDirection = new List<int> ();
 	public List<int> friendDirection = new List<int> ();
@@ -141,7 +142,7 @@ public class SoldierPawn : MonoBehaviour {
 		if (HasDirection(enemyDirection)) {
 			MoveTo (FindDirection(enemyDirection));
 		} else {
-			Debug.Log("No enemies");
+
 		}
 	}
 
@@ -149,15 +150,11 @@ public class SoldierPawn : MonoBehaviour {
 		if (HasDirection (friendDirection)) {
 			MoveTo (FindDirection (friendDirection));
 		} else {
-				Debug.Log("No Friends");
+
 		}
 	}
 
-	public void MoveTo(Vector3 target) {
-		Vector3 velocity = target * moveSpeed;
-		velocity = transform.TransformDirection (velocity);		
-		controller.Move (velocity * Time.deltaTime);
-	}
+
 
 	public void Stop() {
 		cOrder = "";
@@ -197,6 +194,7 @@ public class SoldierPawn : MonoBehaviour {
 
 	public void PrepareShoot() {
 		intBeforeAct = 200;
+		act = true;
 		if (!isReloaded ()) {
 			Reload();
 			return;
@@ -215,32 +213,7 @@ public class SoldierPawn : MonoBehaviour {
 		healthManager.TakeDamage (999);
 	}
 
-	public void ReceivePheromone(Transform emitter, List<int> directionList) {
-		pheromoneAngle = Quaternion.LookRotation (emitter.position -  transform.position).eulerAngles;
-		if (pheromoneAngle.y > 331 && pheromoneAngle.y < 360 || pheromoneAngle.y >= 0 && pheromoneAngle.y < 30) {
-			directionList[0] += 1;
-		}
-		if (pheromoneAngle.y > 31 && pheromoneAngle.y < 60) {
-			directionList[1] += 1;
-		}
-		if (pheromoneAngle.y > 61 && pheromoneAngle.y < 120) {
-			directionList[2] += 1;
-		}
-		if (pheromoneAngle.y > 121 && pheromoneAngle.y < 150) {
-			directionList[3] += 1;
-		}
-		if (pheromoneAngle.y > 151 && pheromoneAngle.y < 210) {
-			directionList[4] += 1;
-		}
-		if (pheromoneAngle.y > 211 && pheromoneAngle.y < 240) {
-			directionList[5] += 1;
-		}
-		if (pheromoneAngle.y > 241 && pheromoneAngle.y < 300) {
-			directionList[6] += 1;
-		} if (pheromoneAngle.y > 301 && pheromoneAngle.y < 330) {
-			directionList[7] += 1;
-		}
-	}
+
 	
 
 	public void ReceiveFlagPheromone(string type) {
@@ -256,6 +229,8 @@ public class SoldierPawn : MonoBehaviour {
 			break;
 		}
 	}
+
+
 
 	public Vector3 FindDirection(List<int> directionList) {
 		int maxIndex;
@@ -303,11 +278,16 @@ public class SoldierPawn : MonoBehaviour {
 		maxIndex = 0;
 		maxValue = directionList [maxIndex];
 		for (int index = 7; index > 0; index--) {
+			if(directionList[index] > 3)
+			{
+				int g = 0;
+			}
 			if (directionList[index] > maxValue) {
 				maxIndex = index;
 				maxValue = directionList[index];
 			}
 		}
+
 		return maxValue;
 	}
 
@@ -316,7 +296,7 @@ public class SoldierPawn : MonoBehaviour {
 	}
 
 	public void CleanPheromone() {
-		for (int i = 7 ; i > 0 ; i--) {
+		for (int i = 0 ; i <= 7 ; i++) {
 			if (enemyDirection[i] > 0) {
 				enemyDirection[i]--;
 			}
@@ -328,4 +308,123 @@ public class SoldierPawn : MonoBehaviour {
 
 	public void Tirer() {
 	}	
+
+
+	/*
+	 *  MES MODIFS
+	 * 
+	 * */
+
+
+
+	public Vector3 FindDirectionOther(List<int> directionList, string s) {
+		int maxIndex;
+		int maxValue;
+		
+		maxIndex = 0;
+		maxValue = directionList [maxIndex];
+		for (int index = 7; index > 0; index--) {
+			if (directionList[index] > maxValue) {
+				maxIndex = index;
+				maxValue = directionList[index];
+			}
+		}
+		
+		switch(s) {
+		case "right":
+			maxIndex +=2;
+			if(maxIndex > 7)
+			{
+				maxIndex -= 8;
+			}
+			break;
+		case "left":
+			maxIndex -=2;
+			if(maxIndex < 0)
+			{
+				maxIndex += 8;
+			}
+			break;
+		case "back" :
+			maxIndex -=4;
+			if(maxIndex < 0)
+			{
+				maxIndex += 8;
+			}
+			break;
+		}
+		
+		return Quaternion.AngleAxis (pheromoneAngles [maxIndex], Vector3.up) * Vector3.forward;
+	}
+
+	public void MarchLeftToFoes() {
+		if (HasDirection(enemyDirection)) {
+			MoveTo (FindDirectionOther(enemyDirection, "left"));
+		} else {
+
+		}
+	}
+	
+	public void MarchRightToFoes() {
+		if (HasDirection(enemyDirection)) {
+			MoveTo (FindDirectionOther(enemyDirection, "right"));
+		} else {
+
+		}
+	}
+	
+	public void MarchBackwardFoes() {
+		if (HasDirection(enemyDirection)) {
+			MoveTo (FindDirectionOther(enemyDirection, "back"));
+		} else {
+
+		}
+	}
+
+	public void MoveTo(Vector3 target) {
+		CleanAllPheromones ();
+		intBeforeAct = Random.Range(50, 125);
+		act = true;
+		Vector3 velocity = target * moveSpeed;
+		velocity = transform.TransformDirection (velocity);		
+		controller.Move (velocity * Time.deltaTime);
+	}
+
+	public void CleanAllPheromones()
+	{
+		Debug.Log ("DoubleFuck");
+		for (int i = 0 ; i <= 7 ; i++) {
+			enemyDirection[i] = 0;
+			friendDirection[i] = 0;
+		}
+	}
+
+	public void ReceivePheromone(Transform emitter, List<int> directionList) {
+		Vector3 f = emitter.position - transform.position; 
+		f.y += 1; 
+		pheromoneAngle = Quaternion.LookRotation (f).eulerAngles;
+		if (pheromoneAngle.y > 331 && pheromoneAngle.y < 360 || pheromoneAngle.y >= 0 && pheromoneAngle.y < 30) {
+			directionList[0] += 1;
+		}
+		if (pheromoneAngle.y > 31 && pheromoneAngle.y < 60) {
+			directionList[1] += 1;
+		}
+		if (pheromoneAngle.y > 61 && pheromoneAngle.y < 120) {
+			directionList[2] += 1;
+		}
+		if (pheromoneAngle.y > 121 && pheromoneAngle.y < 150) {
+			directionList[3] += 1;
+		}
+		if (pheromoneAngle.y > 151 && pheromoneAngle.y < 210) {
+			directionList[4] += 1;
+		}
+		if (pheromoneAngle.y > 211 && pheromoneAngle.y < 240) {
+			directionList[5] += 1;
+		}
+		if (pheromoneAngle.y > 241 && pheromoneAngle.y < 300) {
+			directionList[6] += 1;
+		} if (pheromoneAngle.y > 301 && pheromoneAngle.y < 330) {
+			directionList[7] += 1;
+		}
+	}
 }
