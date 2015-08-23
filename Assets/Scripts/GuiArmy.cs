@@ -19,13 +19,22 @@ public class GuiArmy : MonoBehaviour {
 	public bool groupe = false;
 
 	[SerializeField]
+	public bool number = false;
+
+	[SerializeField]
 	public bool done = false;
 
 	[SerializeField]
 	public GameObject prefab;
 
 	[SerializeField]
-	public int  number = 250;
+	public GameObject prefabLeader;
+
+	[SerializeField]
+	public int numberRange = 250;
+
+	[SerializeField]
+	public int range = 25;
 
 	GameObject thing;
 
@@ -38,11 +47,25 @@ public class GuiArmy : MonoBehaviour {
 
 	void Spawn() {
 
-		for (int i = 0; i < number; i++) {
-			float num = Random.Range(0, 125);
+		SingletonLeader sL = SingletonLeader.Instance;
+
+		for (int i = 0; i < 10; i++) {
+			float num = Random.Range(0, range);
 			Vector3 pos = RandomCircle(this.transform.localPosition, num);
-			soldierList.Add(Instantiate(prefab, pos, this.transform.localRotation) as GameObject);
+			GameObject lead = Instantiate(prefabLeader, pos, this.transform.localRotation) as GameObject;
+			soldierList.Add(lead);
+			sL.leaderPlayerList.Add(lead);
+			for (int y = 0; y < (numberRange/10); y++) {
+				float num2 = Random.Range(0, range);
+				Vector3 pos2 = RandomCircle(this.transform.localPosition, num);
+				GameObject s = Instantiate(prefab, pos2, this.transform.localRotation) as GameObject;
+				soldierList.Add(s);
+				Leader l = lead.GetComponent<Leader>();
+				l.soldierList.Add(s);
+			}
 		}
+	
+
 		foreach(GameObject obj in soldierList)
 		{
 			SoldierController s = obj.GetComponent<SoldierController>();
@@ -67,17 +90,40 @@ public class GuiArmy : MonoBehaviour {
 			done = false;
 			for(int i = 0; i < soldierComponentList.Count; i++)
 			{
+				/*newOrder.toEvaluate.soldierPawn = soldierList[i].GetComponent<SoldierPawn>();
 				newOrder.toEvaluate.myObj = soldierList[i];
-				soldierComponentList[i].ordersList.Add(newOrder);
+				soldierComponentList[i].ordersList.Add(newOrder);*/
+
 			}
 
 			newOrder = null;
+		} else if (number) {
+			if(GUI.Button(new Rect(15, 50, 150, 30), "20"))
+			{
+				newOrder.toEvaluate.numberToEvaluate = 20;
+				done = true;
+			}
+			if(GUI.Button(new Rect(15, 50, 150, 30), "15"))
+			{
+				newOrder.toEvaluate.numberToEvaluate = 15;
+				done = true;
+			}
+			if(GUI.Button(new Rect(15, 50, 150, 30), "10"))
+			{
+				newOrder.toEvaluate.numberToEvaluate = 10;
+				done = true;
+			}
+			if(GUI.Button(new Rect(15, 50, 150, 30), "5"))
+			{
+				newOrder.toEvaluate.numberToEvaluate = 5;
+				done = true;
+			}
 		}
 		else if (condition) {
 			if(GUI.Button(new Rect(15, 50, 150, 30), AllEnums.ObjectsEnums.Enemy.ToString()))
 			{
 				newOrder.toEvaluate.taging = AllEnums.ObjectsEnums.Enemy.ToString();
-				done = true;
+				number = true;
 			}
 		} else if (evaluator) {
 			if(GUI.Button(new Rect(15,50,150,30), AllEnums.TypeConditionEnums.Distance.ToString()))
@@ -100,14 +146,14 @@ public class GuiArmy : MonoBehaviour {
 
 	void Orders(){
 
-		for(int i =0; i < soldierComponentList[0].ordersList.Count ; i++)
+		/*for(int i =0; i < soldierComponentList[0].ordersList.Count ; i++)
 		{
 			string s = soldierComponentList[0].ordersList[i].resultMessage + " " + soldierComponentList[0].ordersList[i].toEvaluate.ToString() + " " + soldierComponentList[0].ordersList[i].toEvaluate.taging;
 			if(GUI.Button( new Rect(5, 250 + (50*i), 400, 30), s))
 			{
 
 			}
-		}
+		}*/
 	}
 
 }

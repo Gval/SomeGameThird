@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class DistanceEvaluator : Condition  {
@@ -6,20 +6,15 @@ public class DistanceEvaluator : Condition  {
 
 	public override bool CompareObject()
 	{
-		if(objToEvaluate != null && myObj != null){
-			if ((myObj.transform.localPosition - objToEvaluate.transform.localPosition).magnitude < 25) {
+
+
+			if (soldierPawn.FindStrongestEnemyDirection() > 5) {
+				Debug.Log("sdfqhqsdkfh heslhfsmlfslmdfh");
 				return true;
 			}
 
-		}
 		
 		return false;
 	}
 
-	void OnTriggerEnter (Collider collider) {
-		Debug.Log ("BITCH");
-		if (collider.tag == "Enemy") {
-			//objToEvaluate = collider.GetComponent<GameObject>();
-		}
-	}
 }

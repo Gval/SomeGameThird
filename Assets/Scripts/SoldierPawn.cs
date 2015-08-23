@@ -209,14 +209,16 @@ public class SoldierPawn : MonoBehaviour {
 	}
 
 	public Vector3 FindEnemyDirection() {
-		int max;
+		int max, indexSelected;
 		max = 0;
+		indexSelected = 0;
 		for (int index = 7; index > 0; index--) {
 			if (pheromoneDirection[index] > max) {
-				max = index;
+				max = pheromoneDirection[index];
+				indexSelected = index;
 			}
 		}
-		return Quaternion.AngleAxis (pheromoneAngles [max], Vector3.up) * Vector3.forward;
+		return Quaternion.AngleAxis (pheromoneAngles [indexSelected], Vector3.up) * Vector3.forward;
 	}
 
 	public bool isActing() {
@@ -225,6 +227,19 @@ public class SoldierPawn : MonoBehaviour {
 
 	public void OnGUI() {
 		GUI.Label(new Rect(300, team * 50, 400, 400), "angle pheromone : " + pheromoneAngle.y);
+	}
+
+	public int FindStrongestEnemyDirection()
+	{
+		int max;
+		max = 0;
+		for (int index = 7; index > 0; index--) {
+			if (pheromoneDirection[index] > max) {
+				max = pheromoneDirection[index];
+			}
+		}
+
+		return max;
 	}
 
 	public void Wait() {
@@ -241,6 +256,7 @@ public class SoldierPawn : MonoBehaviour {
 	public void Courrir()
 	{
 		cOrder = AllEnums.messagesEnums.Courrir.ToString ();
+		moveDirection = FindEnemyDirection ();
 	}
 
 	public void Tirer()

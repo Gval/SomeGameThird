@@ -23,11 +23,11 @@ public class Commander : MonoBehaviour {
 	void Move() {
 
 		Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
-		Debug.Log ("direction : " + direction);
+		//Debug.Log ("direction : " + direction);
 		Vector3 velocity = direction * moveSpeed;
-		Debug.Log ("moveSpeed : " + moveSpeed);
+		//Debug.Log ("moveSpeed : " + moveSpeed);
 		velocity = transform.TransformDirection (velocity);
-		Debug.Log ("velocity : " + moveSpeed);
+		//Debug.Log ("velocity : " + moveSpeed);
 		transform.position += velocity;
 		//controller.Move (velocity);
 	}

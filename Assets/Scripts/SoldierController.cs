@@ -4,7 +4,9 @@ using System.Collections.Generic;
 
 public class SoldierController : MonoBehaviour {
 
-	private SoldierPawn soldierPawn;
+	private Leader soldierPawn;
+
+	private 
 
 	private Collider myTrans;
 
@@ -12,17 +14,14 @@ public class SoldierController : MonoBehaviour {
 	public List<Order> ordersList;
 
 	void Start () {
-		soldierPawn = GetComponent<SoldierPawn> ();
-		myTrans = this.transform.GetComponent<SphereCollider>();
+		soldierPawn = GetComponent<Leader> ();
+
 	}
 
 	void Update () {
 
-		if (!soldierPawn.isActing () && myTrans.isTrigger == false) {
-			myTrans.isTrigger = true;
-		} else if (!soldierPawn.isActing () && myTrans.isTrigger == true) {
+		if (!soldierPawn.isActing () ) {
 			FUCK();
-			myTrans.isTrigger = false;
 		}
 	}
 
@@ -44,22 +43,21 @@ public class SoldierController : MonoBehaviour {
 	public void FUCK()
 	{
 		switch (Process ()) {
-		case "Wait" :
-			soldierPawn.Wait();
+		case "Blue" :
+			foreach (SoldierPawn pawn in soldierPawn.soldierList) {
+				pawn.SetOrder (ordersList[0].resultMessage, soldierPawn);
+			}
 			break;
-		case "Courrir" :
-			soldierPawn.Courrir();
+		case "Red" :
+			foreach (SoldierPawn pawn in soldierPawn.soldierList) {
+				pawn.SetOrder (ordersList[1].resultMessage, );
+			}
 			break;
-		case "Tirer" :
-			soldierPawn.Tirer();
+		case "Yellow" :
+			foreach (SoldierPawn pawn in soldierPawn.soldierList) {
+				pawn.SetOrder (ordersList[2].resultMessage, );
+			}
 			break;
-		}
-	}
-
-	void OnTriggerEnter (Collider collider) {
-		Debug.Log ("BITCH");
-		if (collider.tag == "Enemy") {
-			//objToEvaluate = collider.GetComponent<GameObject>();
 		}
 	}
 
