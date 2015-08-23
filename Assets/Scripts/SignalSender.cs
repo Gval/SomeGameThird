@@ -15,7 +15,6 @@ public class SignalSender : MonoBehaviour {
 	}
 
 	public void OnTriggerEnter(Collider collider) {
-		Debug.Log ("Collide with : " + collider);
 		if (collider.tag == "Soldier") {
 			pawns.Add(collider.GetComponent<SoldierPawn>());
 		}

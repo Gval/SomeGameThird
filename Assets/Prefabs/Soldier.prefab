@@ -15,6 +15,7 @@ GameObject:
   - 143: {fileID: 14351868}
   - 135: {fileID: 13560624}
   - 54: {fileID: 5416256}
+  - 114: {fileID: 11407968}
   m_Layer: 0
   m_Name: Soldier
   m_TagString: Soldier
@@ -92,6 +93,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: .200000003, y: .200000003, z: .200000003}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &11407968
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 107116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68354eb3356bd3e42a4ea476aee38302, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ordersList: []
 --- !u!114 &11437048
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -111,13 +124,18 @@ MonoBehaviour:
   cAim: 0
   bulletPrefab: {fileID: 0}
   team: 1
+  redFlag: 0
+  greenFlag: 0
+  blueFlag: 0
   cOrder: 
   intBeforeAct: 0
   moveDirection: {x: 0, y: 0, z: 0}
+  pheromoneCleanRepeat: 0
   pheromoneDirection: 
   pheromoneQuaternion: []
   pheromoneAngles: []
   pheromoneAngle: {x: 0, y: 0, z: 0}
+  isLined: 0
 --- !u!135 &13560624
 SphereCollider:
   m_ObjectHideFlags: 1

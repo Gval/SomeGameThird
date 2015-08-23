@@ -12,13 +12,19 @@ public abstract class Condition  : MonoBehaviour {
 	[SerializeField]
 	public SoldierPawn soldierPawn;
 
-	public SingletonLeader singleLeader;
-
 	public int numberToEvaluate;
 
-	public string taging;
-
-	public Vector3 target;
+	public string whatToDoSir;
 
 	public abstract bool CompareObject();
+
+	public abstract bool CompareObjectFight();
+
+	public abstract bool CompareObjectFriends();
+
+	public abstract bool CompareObjectDeadFriends();
+
+	public abstract bool CompareObjectDeadFoes();
+
+	public abstract bool CompareObjectFoes();
 }

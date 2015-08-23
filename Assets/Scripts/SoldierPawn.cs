@@ -277,7 +277,7 @@ public class SoldierPawn : MonoBehaviour {
 
 	public void Courrir()
 	{
-		cOrder = AllEnums.messagesEnums.Courrir.ToString ();
+		//cOrder = AllEnums.messagesEnums.Courrir.ToString ();
 	}
 
 	public void Tirer()

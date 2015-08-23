@@ -244,13 +244,18 @@ MonoBehaviour:
   cAim: 0
   bulletPrefab: {fileID: 0}
   team: 1
+  redFlag: 0
+  greenFlag: 0
+  blueFlag: 0
   cOrder: 
   intBeforeAct: 0
   moveDirection: {x: 0, y: 0, z: 0}
+  pheromoneCleanRepeat: 0
   pheromoneDirection: 
   pheromoneQuaternion: []
   pheromoneAngles: []
   pheromoneAngle: {x: 0, y: 0, z: 0}
+  isLined: 0
 --- !u!114 &380473981
 MonoBehaviour:
   m_ObjectHideFlags: 0
