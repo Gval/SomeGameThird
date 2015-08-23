@@ -5,27 +5,35 @@ using System.Collections.Generic;
 public class PheromoneManager : MonoBehaviour {
 
 	private SoldierPawn pawn;
+	private Cadaver cadaver;
+
 	public List<SoldierPawn> others = new List<SoldierPawn> ();
+	public List<Cadaver> cadavers = new List<Cadaver>();
 	public int team;
-	public float pheromoneRate;
 
 	// Use this for initialization
 	void Start () {
-		pawn = GetComponentInParent<SoldierPawn> ();
-		team = pawn.team;
-		InvokeRepeating ("SendPheromone", 1, pheromoneRate);
+		if ((pawn = GetComponentInParent<SoldierPawn> ()) != null) {
+			team = pawn.team;
+		} else if ((cadaver = GetComponentInParent<Cadaver>()) != null) {
+			team = cadaver.team;
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown ("p")) {
 			Debug.Log("Send pheromone");
-			SendPheromone();
+			SendPresencePheromone();
 		}
 	}
 
-	public void SendPheromone(){
+	public void SendPresencePheromone(){
 		foreach (SoldierPawn other in others) {
+			if (!other.isActiveAndEnabled) {
+				others.Remove(other);
+				return ;
+			}
 			if (other.team != team) {
 				other.ReceivePheromone(pawn.transform, other.enemyDirection);
 			} else if (other.team == team) {
@@ -36,6 +44,14 @@ public class PheromoneManager : MonoBehaviour {
 
 	public void SendDeathPheromone() {
 		foreach (SoldierPawn other in others) {
+			if (!other.isActiveAndEnabled || other == null) {
+				others.Remove(other);
+				return ;
+			}
+			if (pawn == null) {
+				Debug.Log("Pawn null");
+				return;
+			}
 			if (other.team == team) {
 				other.ReceivePheromone(pawn.transform, other.deadDirection);
 			}

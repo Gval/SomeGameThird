@@ -41,7 +41,7 @@ public class SoldierController : MonoBehaviour {
 
 	public void FUCK()
 	{
-		SendMessage(Process ());
+		//SendMessage(Process ());
 	}
 
 

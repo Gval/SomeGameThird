@@ -5,6 +5,7 @@ public class HealthManager : MonoBehaviour {
 
 	private SoldierPawn pawnOwner;
 	public float health;
+	public GameObject cadaverPrefab;
 
 	// Use this for initialization
 	void Start () {
@@ -25,6 +26,7 @@ public class HealthManager : MonoBehaviour {
 	}*/
 
 	public void TakeDamage(float damage) {
+		Debug.Log (this.gameObject.name + " take damage : " + damage);
 		health -= damage;
 		if (health <= 0) {
 			Die();
@@ -33,7 +35,8 @@ public class HealthManager : MonoBehaviour {
 
 	void Die() {
 		Debug.Log (gameObject.name + " : Je me meurs");
-		pawnOwner.pheromoneManager.SendDeathPheromone();
-		Destroy (this.gameObject);
+		GameObject cadaver = (GameObject) Instantiate (cadaverPrefab, transform.position, transform.rotation);
+		cadaver.GetComponent<Cadaver> ().team = pawnOwner.team;
+		this.gameObject.SetActive (false);
 	}
 }

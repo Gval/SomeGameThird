@@ -56,8 +56,8 @@ public class SoldierPawn : MonoBehaviour {
 	void Start () {
 		controller = GetComponent<CharacterController> ();
 		healthManager = GetComponent<HealthManager> ();
-		signalSender = GetComponent<SignalSender> ();
-		pheromoneManager = GetComponent<PheromoneManager> ();
+		signalSender = GetComponentInChildren<SignalSender> ();
+		pheromoneManager = GetComponentInChildren<PheromoneManager> ();
 
 		for (int i = 7; i >= 0 ; i--) {
 			enemyDirection.Add (0);
@@ -67,6 +67,7 @@ public class SoldierPawn : MonoBehaviour {
 		}
 
 		InvokeRepeating ("CleanPheromone", 0.1f, pheromoneCleanRepeat);
+		InvokeRepeating ("SendPheromone", 0.1f, pheromoneCleanRepeat);
 
 		pheromoneAngles.Add (0); 
 		pheromoneAngles.Add (45); 
@@ -77,11 +78,8 @@ public class SoldierPawn : MonoBehaviour {
 		pheromoneAngles.Add (270);
 		pheromoneAngles.Add (315);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
 
+	void Update () {
 		intBeforeAct--;
 
 	switch (cOrder) {
@@ -112,6 +110,9 @@ public class SoldierPawn : MonoBehaviour {
 			break;
 		case ("Aim"):
 			Aim();
+			break;
+		case ("Die"):
+			Die();
 			break;
 		default :
 			break;
@@ -213,10 +214,15 @@ public class SoldierPawn : MonoBehaviour {
 	public void Die() {
 		Debug.Log ("Suicide");
 		healthManager.TakeDamage (999);
+		Stop ();
 	}
 
 	public void ReceivePheromone(Transform emitter, List<int> directionList) {
-		pheromoneAngle = Quaternion.LookRotation (emitter.position -  transform.position).eulerAngles;
+		Vector3 f = emitter.position - transform.position; 
+		f.y += 1; 
+		pheromoneAngle = Quaternion.LookRotation (f).eulerAngles;
+
+		//pheromoneAngle = Quaternion.LookRotation (emitter.position -  transform.position).eulerAngles;
 		if (pheromoneAngle.y > 331 && pheromoneAngle.y < 360 || pheromoneAngle.y >= 0 && pheromoneAngle.y < 30) {
 			directionList[0] += 1;
 		}
@@ -323,6 +329,10 @@ public class SoldierPawn : MonoBehaviour {
 		}
 	}
 
+	public void SendPheromone(){
+		pheromoneManager.SendPresencePheromone ();
+	}
+	
 	public void Courrir() {
 	}
 
