@@ -22,6 +22,40 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &112478
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 473622}
+  - 114: {fileID: 11486160}
+  - 135: {fileID: 13584578}
+  m_Layer: 0
+  m_Name: PheromoneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &185430
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 467936}
+  - 114: {fileID: 11499648}
+  - 135: {fileID: 13546034}
+  m_Layer: 0
+  m_Name: SignalFlare
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &440276
 Transform:
   m_ObjectHideFlags: 1
@@ -29,10 +63,36 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 107116}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -38.3510513, y: .5, z: 97.29776}
+  m_LocalPosition: {x: 1.55999994, y: 1.15999997, z: -2.11999989}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 473622}
+  - {fileID: 467936}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!4 &467936
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 185430}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 440276}
+  m_RootOrder: 1
+--- !u!4 &473622
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 112478}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 440276}
   m_RootOrder: 0
 --- !u!23 &2338486
 MeshRenderer:
@@ -104,6 +164,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthManager: {fileID: 0}
+  signalSender: {fileID: 0}
+  pheromoneManager: {fileID: 0}
   moveSpeed: 5
   reloadTime: 5
   cReload: 0
@@ -111,19 +173,76 @@ MonoBehaviour:
   cAim: 0
   bulletPrefab: {fileID: 0}
   team: 1
+  redFlag: 0
+  greenFlag: 0
+  blueFlag: 0
   cOrder: 
   intBeforeAct: 0
   moveDirection: {x: 0, y: 0, z: 0}
-  pheromoneDirection: 
-  pheromoneQuaternion: []
+  pheromoneCleanRepeat: 3
+  enemyDirection: 
+  friendDirection: 
+  deadDirection: 
+  treeDirection: 
   pheromoneAngles: []
   pheromoneAngle: {x: 0, y: 0, z: 0}
+  isLined: 0
+--- !u!114 &11486160
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 112478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 655cffd6c985fcc4785463f54fd4eb23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  others: []
+  team: 0
+  pheromoneRate: 3
+--- !u!114 &11499648
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 185430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8af0643b13792e44da8f262a0a3b7aa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pawns: []
+--- !u!135 &13546034
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 185430}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 10
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &13560624
 SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 107116}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 20
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &13584578
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 112478}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1

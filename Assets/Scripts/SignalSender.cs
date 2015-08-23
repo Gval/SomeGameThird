@@ -14,6 +14,14 @@ public class SignalSender : MonoBehaviour {
 		}
 	}
 
+	public void SendDead(int team) {
+		foreach (SoldierPawn pawn in pawns) {
+			if (pawn.team == team) {
+				pawn.ReceivePheromone(this.gameObject.transform, pawn.deadDirection);
+			}
+		}
+	}
+
 	public void OnTriggerEnter(Collider collider) {
 		if (collider.tag == "Soldier") {
 			pawns.Add(collider.GetComponent<SoldierPawn>());

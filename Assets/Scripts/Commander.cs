@@ -75,6 +75,12 @@ public class Commander : MonoBehaviour {
 				pawn.SetOrder ("Aim");
 			}
 		}
+		if (Input.GetKeyDown ("8")) {
+			foreach (SoldierPawn pawn in soldiers) {
+				Debug.Log("Die");
+				pawn.SetOrder ("Die");
+			}
+		}
 	}
 
 	void OnTriggerEnter(Collider collider) {

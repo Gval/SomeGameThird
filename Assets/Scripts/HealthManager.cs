@@ -33,6 +33,7 @@ public class HealthManager : MonoBehaviour {
 
 	void Die() {
 		Debug.Log (gameObject.name + " : Je me meurs");
+		pawnOwner.pheromoneManager.SendDeathPheromone();
 		Destroy (this.gameObject);
 	}
 }

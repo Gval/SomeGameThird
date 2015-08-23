@@ -7,6 +7,8 @@ public class SoldierPawn : MonoBehaviour {
 	CharacterController controller;
 
 	public HealthManager healthManager;
+	public SignalSender	signalSender;
+	public PheromoneManager pheromoneManager;
 
 	[SerializeField]
 	public float moveSpeed = 5;
@@ -40,6 +42,8 @@ public class SoldierPawn : MonoBehaviour {
 
 	public List<int> enemyDirection = new List<int> ();
 	public List<int> friendDirection = new List<int> ();
+	public List<int> deadDirection = new List<int> ();
+	public List<int> treeDirection = new List<int> ();
 
 	public List<float> pheromoneAngles = new List<float> ();
 	public Vector3 pheromoneAngle;
@@ -52,10 +56,14 @@ public class SoldierPawn : MonoBehaviour {
 	void Start () {
 		controller = GetComponent<CharacterController> ();
 		healthManager = GetComponent<HealthManager> ();
+		signalSender = GetComponent<SignalSender> ();
+		pheromoneManager = GetComponent<PheromoneManager> ();
 
 		for (int i = 7; i >= 0 ; i--) {
 			enemyDirection.Add (0);
 			friendDirection.Add (0);
+			deadDirection.Add(0);
+			treeDirection.Add(0);
 		}
 
 		InvokeRepeating ("CleanPheromone", 0.1f, pheromoneCleanRepeat);
@@ -200,6 +208,11 @@ public class SoldierPawn : MonoBehaviour {
 		}
 		Debug.Log ("AimReady");
 		Shoot ();
+	}
+
+	public void Die() {
+		Debug.Log ("Suicide");
+		healthManager.TakeDamage (999);
 	}
 
 	public void ReceivePheromone(Transform emitter, List<int> directionList) {

@@ -24,12 +24,20 @@ public class PheromoneManager : MonoBehaviour {
 		}
 	}
 
-	void SendPheromone(){
+	public void SendPheromone(){
 		foreach (SoldierPawn other in others) {
 			if (other.team != team) {
 				other.ReceivePheromone(pawn.transform, other.enemyDirection);
 			} else if (other.team == team) {
 				other.ReceivePheromone(pawn.transform, other.friendDirection);
+			}
+		}
+	}	
+
+	public void SendDeathPheromone() {
+		foreach (SoldierPawn other in others) {
+			if (other.team == team) {
+				other.ReceivePheromone(pawn.transform, other.deadDirection);
 			}
 		}
 	}
