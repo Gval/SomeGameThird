@@ -10,13 +10,10 @@ public class GuiArmy : MonoBehaviour {
 	public List<SoldierController> soldierComponentList;
 
 	[SerializeField]
-	public bool condition = false;
-
-	[SerializeField]
 	public bool evaluator = false;
 
 	[SerializeField]
-	public bool groupe = false;
+	public bool direction = false;
 
 	[SerializeField]
 	public bool done = false;
@@ -25,7 +22,13 @@ public class GuiArmy : MonoBehaviour {
 	public GameObject prefab;
 
 	[SerializeField]
-	public int  number = 250;
+	public GameObject prefabLeader;
+
+	[SerializeField]
+	public int numberRange = 250;
+
+	[SerializeField]
+	public int range = 25;
 
 	GameObject thing;
 
@@ -37,12 +40,19 @@ public class GuiArmy : MonoBehaviour {
 	}
 
 	void Spawn() {
+		
 
-		for (int i = 0; i < number; i++) {
-			float num = Random.Range(0, 125);
-			Vector3 pos = RandomCircle(this.transform.localPosition, num);
-			soldierList.Add(Instantiate(prefab, pos, this.transform.localRotation) as GameObject);
+
+			for (int y = 0; y < numberRange; y++) {
+				float num2 = Random.Range(0, range);
+				Vector3 pos2 = RandomCircle(this.transform.localPosition, range);
+				GameObject s = Instantiate(prefab, pos2, this.transform.localRotation) as GameObject;
+				SoldierPawn p = s.GetComponent<SoldierPawn>();
+				soldierList.Add(s);
+
 		}
+	
+
 		foreach(GameObject obj in soldierList)
 		{
 			SoldierController s = obj.GetComponent<SoldierController>();
@@ -62,44 +72,30 @@ public class GuiArmy : MonoBehaviour {
 	void OnGUI(){
 		
 		if (done) {
-			condition = false;
 			evaluator = false;
 			done = false;
 			for(int i = 0; i < soldierComponentList.Count; i++)
 			{
+				newOrder.resultMessage = getResultMessage();
+				newOrder.toEvaluate.soldierPawn = soldierList[i].GetComponent<SoldierPawn>();
 				newOrder.toEvaluate.myObj = soldierList[i];
 				soldierComponentList[i].ordersList.Add(newOrder);
-			}
 
+			}
 			newOrder = null;
+		} else if (direction) {
+			DisplayDirections();
 		}
-		else if (condition) {
-			if(GUI.Button(new Rect(15, 50, 150, 30), AllEnums.ObjectsEnums.Enemy.ToString()))
-			{
-				newOrder.toEvaluate.taging = AllEnums.ObjectsEnums.Enemy.ToString();
-				done = true;
-			}
-		} else if (evaluator) {
-			if(GUI.Button(new Rect(15,50,150,30), AllEnums.TypeConditionEnums.Distance.ToString()))
-			{
-				Condition s = gameObject.AddComponent<DistanceEvaluator>();
-				newOrder.toEvaluate = s;
-				condition = true;
-			}
+		else if (evaluator) {
+			DisplayOrders();
 		}else {
-			if(GUI.Button(new Rect(15, 50, 150, 30), AllEnums.messagesEnums.Marcher.ToString()))
-			{
-				newOrder = gameObject.AddComponent<MoveOrder>();
-				newOrder.resultMessage = AllEnums.messagesEnums.Courrir.ToString();
-				evaluator = true;
-			}
+			DisplayEvaluators();
 		}
 
 		Orders ();
 	}
 
 	void Orders(){
-
 		for(int i =0; i < soldierComponentList[0].ordersList.Count ; i++)
 		{
 			string s = soldierComponentList[0].ordersList[i].resultMessage + " " + soldierComponentList[0].ordersList[i].toEvaluate.ToString() + " " + soldierComponentList[0].ordersList[i].toEvaluate.taging;
@@ -110,4 +106,78 @@ public class GuiArmy : MonoBehaviour {
 		}
 	}
 
+	void DisplayEvaluators(){
+
+		if (GUI.Button (new Rect (15, 50, 150, 30), "Fight")) {
+			newOrder.whoIsItSir = AllEnums.ObjectsEnums.Fight.ToString();
+			evaluator = true;
+		}
+		if (GUI.Button (new Rect (15, 50, 150, 30), "Friends")) {
+			newOrder.whoIsItSir = AllEnums.ObjectsEnums.Friends.ToString();
+			evaluator = true;
+		}
+		if (GUI.Button (new Rect (15, 50, 150, 30), "DeadFriends")) {
+			newOrder.whoIsItSir = AllEnums.ObjectsEnums.DeadFriends.ToString();
+			evaluator = true;
+		}
+		if (GUI.Button (new Rect (15, 50, 150, 30), "DeadFoes")) {
+			newOrder.whoIsItSir = AllEnums.ObjectsEnums.DeadFoes.ToString();
+			evaluator = true;
+		}
+		if (GUI.Button (new Rect (15, 50, 150, 30), "Foes")) {
+			newOrder.whoIsItSir = AllEnums.ObjectsEnums.Foes.ToString();
+			evaluator = true;
+		}
+	}
+
+	void DisplayOrders(){
+
+
+		/*Marcher,
+		Feu,
+		Courrir,
+		Wait,
+		Attaque*/
+
+
+		if (GUI.Button (new Rect (15, 50, 150, 30), "March")) {
+			newOrder.whatToDoSir = AllEnums.messagesEnums.March.ToString();
+			direction = true;
+		}
+		if (GUI.Button (new Rect (15, 50, 150, 30), "Fire")) {
+			newOrder.whatToDoSir = AllEnums.messagesEnums.Fire.ToString();
+			direction = true;
+		}
+		if (GUI.Button (new Rect (15, 50, 150, 30), "Wait")) {
+			newOrder.whatToDoSir = AllEnums.messagesEnums.Wait.ToString();
+			direction = true;
+		}
+		if (GUI.Button (new Rect (15, 50, 150, 30), "Attack")) {
+			newOrder.whatToDoSir = AllEnums.messagesEnums.Attack.ToString();
+			direction = true;
+		}
+	}
+
+	void DisplayDirections(){
+		if (GUI.Button (new Rect (15, 50, 150, 30), "Toward")) {
+			newOrder.direction = AllEnums.Direction.Toward.ToString();
+			done = true;
+		}
+		if (GUI.Button (new Rect (15, 50, 150, 30), "LeftTo")) {
+			newOrder.direction = AllEnums.Direction.LeftTo.ToString();
+			done = true;
+		}
+		if (GUI.Button (new Rect (15, 50, 150, 30), "RightTo")) {
+			newOrder.direction = AllEnums.Direction.RightTo.ToString();
+			done = true;
+		}
+		if (GUI.Button (new Rect (15, 50, 150, 30), AllEnums.Direction.Backward.ToString())) {
+			newOrder.direction = AllEnums.Direction.Backward.ToString();
+			done = true;
+		}
+	}
+
+	string getResultMessage(){
+		return newOrder.whatToDoSir + newOrder.direction + newOrder.whoIsItSir;
+	}
 }

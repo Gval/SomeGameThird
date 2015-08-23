@@ -5,32 +5,26 @@ public class AllEnums {
 
 	public enum messagesEnums
 	{
-		Marcher,
-		Feu,
-		Courrir,
+		March,
+		Fire,
 		Wait,
-		Stop,
-		Attaque
+		Attack
 	};
 
 	public enum ObjectsEnums
 	{
-		SignalBleu,
-		SignalVert,
-		SignalJaune,
-		Groupe1,
-		Groupe2,
-		Groupe3,
-		Groupe4,
-		Groupe5,
-		Enemy,
-		soldier
+		Fight,
+		Friends,
+		DeadFriends,
+		DeadFoes,
+		Foes
 	};
 
-	public enum TypeConditionEnums
+	public enum Direction
 	{
-		Distance,
-		Health
+		Toward,
+		LeftTo,
+		RightTo,
+		Backward
 	};
-
 }
