@@ -282,6 +282,22 @@ public class SoldierPawn : MonoBehaviour {
 		moveDirection = new Vector3(Random.Range(-359, 359),0,Random.Range(-359, 359)).normalized;
 	}
 
+	public int findStrongestDirection(List<int> directionList)
+	{
+		int maxIndex;
+		int maxValue;
+		
+		maxIndex = 0;
+		maxValue = directionList [maxIndex];
+		for (int index = 7; index > 0; index--) {
+			if (directionList[index] > maxValue) {
+				maxIndex = index;
+				maxValue = directionList[index];
+			}
+		}
+		return maxValue;
+	}
+
 	public void moveRandomly() {
 		transform.position += moveDirection * 0.1f;
 	}

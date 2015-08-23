@@ -5,6 +5,7 @@ public class MoveOrder : Order {
 
 	public override string ProceedOrder()
 	{
+
 		string resultType = resultMessage;
 
 		return resultType;

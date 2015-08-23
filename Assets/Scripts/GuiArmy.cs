@@ -75,6 +75,7 @@ public class GuiArmy : MonoBehaviour {
 			for(int i = 0; i < soldierComponentList.Count; i++)
 			{
 				newOrder.toEvaluate = gameObject.AddComponent<DistanceEvaluator>() as DistanceEvaluator ;
+				newOrder.toEvaluate.whatToDoSir = newOrder.whoIsItSir;
 				newOrder.resultMessage = getResultMessage();
 				newOrder.toEvaluate.soldierPawn = soldierList[i].GetComponent<SoldierPawn>();
 				newOrder.toEvaluate.myObj = soldierList[i];

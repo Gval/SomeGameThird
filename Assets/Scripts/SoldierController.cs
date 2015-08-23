@@ -19,6 +19,7 @@ public class SoldierController : MonoBehaviour {
 	void Update () {
 
 		if (!soldierPawn.isActing()) {
+
 			FUCK();
 		}
 	}
