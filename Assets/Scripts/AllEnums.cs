@@ -5,29 +5,26 @@ public class AllEnums {
 
 	public enum messagesEnums
 	{
-		Marcher,
-		Feu,
-		Courrir,
+		March,
+		Fire,
 		Wait,
-		Attaque
+		Attack
 	};
 
 	public enum ObjectsEnums
 	{
-		aggressivite,
-		allie,
-		allieblesse,
-		allietue,
-		enemiTue,
-		enemisDetecte
+		Fight,
+		Friends,
+		DeadFriends,
+		DeadFoes,
+		Foes
 	};
 
 	public enum Direction
 	{
-		ToutDroit,
-		Agauche,
-		Adroite,
-		EnAvant
+		Toward,
+		LeftTo,
+		RightTo,
+		Backward
 	};
-
 }

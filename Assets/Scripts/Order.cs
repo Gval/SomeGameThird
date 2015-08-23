@@ -6,11 +6,11 @@ public abstract class Order : MonoBehaviour {
 	[SerializeField]
 	public string resultMessage;
 
-	[SerializeField]
-	public Order leftChild;
+	public string direction;
 
-	[SerializeField]
-	public Order rightChild;
+	public string whatToDoSir;
+
+	public string whoIsItSir;
 
 	[SerializeField]
 	public Condition toEvaluate;
