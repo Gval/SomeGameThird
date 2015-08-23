@@ -21,6 +21,9 @@ public class SoldierPawn : MonoBehaviour {
 
 	public int team = 1;
 
+	public float redFlag;
+	public float greenFlag;
+	public float blueFlag;
 
 	public string cOrder = "";
 
@@ -33,6 +36,7 @@ public class SoldierPawn : MonoBehaviour {
 
 	public Vector3 moveDirection;
 
+	public float pheromoneCleanRepeat;
 
 	public List<int> pheromoneDirection = new List<int> ();
 	public List<Quaternion> pheromoneQuaternion = new List<Quaternion> ();
@@ -41,6 +45,7 @@ public class SoldierPawn : MonoBehaviour {
 
 	// if true the character is doing something
 	bool act = false;
+	public bool isLined = false;
 
 	// Use this for initialization
 	void Start () {
@@ -50,6 +55,7 @@ public class SoldierPawn : MonoBehaviour {
 		for (int i = 7; i >= 0 ; i--) {
 			pheromoneDirection.Add (0);
 		}
+
 		pheromoneQuaternion.Add (Quaternion.AngleAxis(0, Vector3.up)); 
 		pheromoneQuaternion.Add (Quaternion.AngleAxis(45, Vector3.up)); 
 		pheromoneQuaternion.Add (Quaternion.AngleAxis(90, Vector3.up)); 
@@ -58,6 +64,8 @@ public class SoldierPawn : MonoBehaviour {
 		pheromoneQuaternion.Add (Quaternion.AngleAxis(225, Vector3.up));
 		pheromoneQuaternion.Add (Quaternion.AngleAxis(270, Vector3.up));
 		pheromoneQuaternion.Add (Quaternion.AngleAxis(315, Vector3.up));
+
+		InvokeRepeating ("CleanPheromone", 0.1f, pheromoneCleanRepeat);
 
 		pheromoneAngles.Add (0); 
 		pheromoneAngles.Add (45); 
@@ -164,10 +172,11 @@ public class SoldierPawn : MonoBehaviour {
 	public void Shoot() {
 		cReload = 0;
 		cAim = 0;
-		GameObject bullet = (GameObject) Instantiate(bulletPrefab, transform.position + transform.forward * 2, transform.rotation);
+		Instantiate(bulletPrefab, transform.position + transform.forward * 2, transform.rotation);
 	}
 
 	public void PrepareShoot() {
+		intBeforeAct = 200;
 		if (!isReloaded ()) {
 			Reload();
 			return;
@@ -182,15 +191,16 @@ public class SoldierPawn : MonoBehaviour {
 	}
 
 	public void ReceivePheromone(SoldierPawn emitter) {
+		Debug.Log ("receive from : " + emitter.name);
 		pheromoneAngle = Quaternion.LookRotation (emitter.transform.position -  transform.position).eulerAngles;
 		if (pheromoneAngle.y > 331 && pheromoneAngle.y < 360 || pheromoneAngle.y >= 0 && pheromoneAngle.y < 30) {
-			pheromoneDirection[0] += 2;
+			pheromoneDirection[0] += 1;
 		}
 		if (pheromoneAngle.y > 31 && pheromoneAngle.y < 60) {
-			pheromoneDirection[1] += 2;
+			pheromoneDirection[1] += 1;
 		}
 		if (pheromoneAngle.y > 61 && pheromoneAngle.y < 120) {
-			pheromoneDirection[2] += 2;
+			pheromoneDirection[2] += 1;
 		}
 		if (pheromoneAngle.y > 121 && pheromoneAngle.y < 150) {
 			pheromoneDirection[3] += 1;
@@ -208,17 +218,36 @@ public class SoldierPawn : MonoBehaviour {
 		}
 	}
 
+	public void ReceiveFlagPheromone(string type) {
+		Debug.Log ("Receive flag pheromone");
+		switch (type) {
+		case "red":
+			redFlag++;
+			break;
+		case "blue":
+			blueFlag++;
+			break;
+		case "green":
+			greenFlag++;
+			break;
+		}
+	}
+
 	public Vector3 FindEnemyDirection() {
-		int max, indexSelected;
-		max = 0;
-		indexSelected = 0;
+		int maxIndex;
+		int maxValue;
+
+		maxIndex = 0;
+		maxValue = pheromoneDirection [maxIndex];
 		for (int index = 7; index > 0; index--) {
-			if (pheromoneDirection[index] > max) {
-				max = pheromoneDirection[index];
-				indexSelected = index;
+			if (pheromoneDirection[index] > maxValue) {
+				Debug.Log("index : " + index + " - old : " + maxValue + " - new : " + pheromoneDirection[index]);
+				maxIndex = index;
+				maxValue = pheromoneDirection[index];
 			}
 		}
-		return Quaternion.AngleAxis (pheromoneAngles [indexSelected], Vector3.up) * Vector3.forward;
+		Debug.Log ("Enemy direction is : " + maxIndex);
+		return Quaternion.AngleAxis (pheromoneAngles [maxIndex], Vector3.up) * Vector3.forward;
 	}
 
 	public bool isActing() {
@@ -227,19 +256,6 @@ public class SoldierPawn : MonoBehaviour {
 
 	public void OnGUI() {
 		GUI.Label(new Rect(300, team * 50, 400, 400), "angle pheromone : " + pheromoneAngle.y);
-	}
-
-	public int FindStrongestEnemyDirection()
-	{
-		int max;
-		max = 0;
-		for (int index = 7; index > 0; index--) {
-			if (pheromoneDirection[index] > max) {
-				max = pheromoneDirection[index];
-			}
-		}
-
-		return max;
 	}
 
 	public void Wait() {
@@ -256,11 +272,18 @@ public class SoldierPawn : MonoBehaviour {
 	public void Courrir()
 	{
 		cOrder = AllEnums.messagesEnums.Courrir.ToString ();
-		moveDirection = FindEnemyDirection ();
 	}
 
 	public void Tirer()
 	{
 
+	}
+
+	public void CleanPheromone() {
+		for (int i = 7 ; i > 0 ; i--) {
+			if (pheromoneDirection[i] > 0) {
+				pheromoneDirection[i]--;
+			}
+		}
 	}
 }
