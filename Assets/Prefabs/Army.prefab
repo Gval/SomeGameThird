@@ -41,12 +41,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soldierList: []
   soldierComponentList: []
-  condition: 0
   evaluator: 0
-  groupe: 0
+  direction: 0
   done: 0
-  prefab: {fileID: 107116, guid: 747aa81607b2c66438c02cd269f0573f, type: 2}
-  number: 250
+  prefab: {fileID: 191364, guid: 52b752081af05c940b375eb2f5b8b223, type: 2}
+  prefabLeader: {fileID: 0}
+  numberRange: 250
+  range: 25
   newOrder: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
@@ -62,7 +63,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: prefab
       value: 
-      objectReference: {fileID: 107116, guid: 747aa81607b2c66438c02cd269f0573f, type: 2}
+      objectReference: {fileID: 191364, guid: 52b752081af05c940b375eb2f5b8b223, type: 2}
     - target: {fileID: 0}
       propertyPath: done
       value: 0

@@ -47,7 +47,9 @@ public class DistanceEvaluator : Condition  {
 	}
 	
 	public override bool CompareObjectFoes(){
-		if (soldierPawn.FindDirection (soldierPawn.enemyDirection) > 10) {
+
+		if (soldierPawn.findStrongestDirection (soldierPawn.enemyDirection) > 10) {
+			Debug.Log ("Yeah");
 			return true;
 		}
 		return false;
