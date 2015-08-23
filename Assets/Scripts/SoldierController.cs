@@ -18,9 +18,10 @@ public class SoldierController : MonoBehaviour {
 
 	void Update () {
 
-		//if (!soldierPawn.isActing()) {
-		//	FUCK();
-		//}
+		if (!soldierPawn.isActing()) {
+
+			FUCK();
+		}
 	}
 
 	private string Process() {
