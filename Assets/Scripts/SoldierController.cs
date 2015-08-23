@@ -33,15 +33,16 @@ public class SoldierController : MonoBehaviour {
 			if(ordersList[i].isConditionTrue())
 			{
 				result = ordersList[i].ProceedOrder();
+
 			}
 		} 
-
+	
 		return result;
 	}
 
 	public void FUCK()
 	{
-		//SendMessage(Process ());
+		SendMessage(Process ());
 	}
 
 

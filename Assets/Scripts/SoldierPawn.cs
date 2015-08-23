@@ -87,7 +87,7 @@ public class SoldierPawn : MonoBehaviour {
 		case ("March") :
 			March ();
 			break;
-		case ("MarchTowardEnemy"):
+		case ("MarchTowardFoes"):
 			MarchTowardFoes();
 			break;
 		case ("MarchTowardFriend"):
@@ -100,9 +100,9 @@ public class SoldierPawn : MonoBehaviour {
 			moveRandomly();
 			//Speak();
 			break;
-		case ("Wait") :
+		/*case ("Wait") :
 			moveRandomly();
-			break;
+			break;*/
 		case ("PrepareShoot"):
 			PrepareShoot();
 			break;
@@ -141,7 +141,10 @@ public class SoldierPawn : MonoBehaviour {
 
 	public void MarchTowardFoes() {
 		if (HasDirection(enemyDirection)) {
+			//transform.Rotate(FindDirection(enemyDirection));
+			cOrder = "MarchTowardFoes";
 			MoveTo (FindDirection(enemyDirection));
+			//March();
 		} else {
 
 		}
@@ -191,6 +194,7 @@ public class SoldierPawn : MonoBehaviour {
 		cReload = 0;
 		cAim = 0;
 		Instantiate(bulletPrefab, transform.position + transform.forward * 2, transform.rotation);
+		SetOrder ("Wait");
 	}
 
 	public void PrepareShoot() {
@@ -200,22 +204,20 @@ public class SoldierPawn : MonoBehaviour {
 			Reload();
 			return;
 		}
-		Debug.Log ("Reload Ready!");
+
 		if (!isAimed ()) {
 			Aim();
 			return;
 		}
-		Debug.Log ("AimReady");
+
 		Shoot ();
 	}
 
 	public void Die() {
-		Debug.Log ("Suicide");
+
 		healthManager.TakeDamage (999);
 		Stop ();
 	}
-
-	}	
 
 	public void ReceiveFlagPheromone(string type) {
 		switch (type) {
@@ -246,6 +248,27 @@ public class SoldierPawn : MonoBehaviour {
 			}
 		}
 		return Quaternion.AngleAxis (pheromoneAngles [maxIndex], Vector3.up) * Vector3.forward;
+	}
+
+	public Vector3 FindDirectionR(List<int> directionList) {
+		int maxIndex;
+		int maxValue;
+		
+		maxIndex = 0;
+		maxValue = directionList [maxIndex];
+		for (int index = 7; index > 0; index--) {
+			if (directionList[index] > maxValue) {
+				maxIndex = index;
+				maxValue = directionList[index];
+			}
+		}
+
+		var rotation = Quaternion.AngleAxis(pheromoneAngles [maxIndex], Vector3.up);
+		var forward = Vector3.forward;
+		var right = rotation * forward;
+	
+
+		return Quaternion.LookRotation (transform.position - right).eulerAngles;
 	}
 
 	public bool HasDirection(List<int> directionList) {
@@ -322,7 +345,7 @@ public class SoldierPawn : MonoBehaviour {
 
 
 
-	public Vector3 FindDirectionOther(List<int> directionList, string s) {
+	public Vector3 FindDirectionROther(List<int> directionList, string s) {
 		int maxIndex;
 		int maxValue;
 		
@@ -358,13 +381,54 @@ public class SoldierPawn : MonoBehaviour {
 			}
 			break;
 		}
+		var rotation = Quaternion.AngleAxis(pheromoneAngles [maxIndex], Vector3.up);
+		var forward = Vector3.forward;
+		var right = rotation * forward;
 		
-		return Quaternion.AngleAxis (pheromoneAngles [maxIndex], Vector3.up) * Vector3.forward;
+		Vector3 res = Quaternion.LookRotation (transform.position - right).eulerAngles;
+		res.x = 0;
+		res.z = 0;
+		return res;
+	}
+
+	public void FireTowardFoes() {
+
+		if (HasDirection(enemyDirection)) {
+			transform.Rotate(FindDirectionR(enemyDirection));
+			SetOrder("PrepareShoot");
+		}
+	}
+
+	public void FireLeftToFoes() {
+		if (HasDirection(enemyDirection)) {
+			transform.LookAt (FindDirectionROther(enemyDirection, "left"));
+			PrepareShoot();
+		} else {
+			
+		}
+	}
+	
+	public void FireRightToFoes() {
+		if (HasDirection(enemyDirection)) {
+			transform.LookAt (FindDirectionROther(enemyDirection, "right"));
+			PrepareShoot();
+		} else {
+			
+		}
+	}
+	
+	public void FireBackwardFoes() {
+		if (HasDirection(enemyDirection)) {
+			transform.LookAt (FindDirectionROther(enemyDirection, "back"));
+			PrepareShoot();
+		} else {
+			
+		}
 	}
 
 	public void MarchLeftToFoes() {
 		if (HasDirection(enemyDirection)) {
-			MoveTo (FindDirectionOther(enemyDirection, "left"));
+			MoveTo (FindDirectionROther(enemyDirection, "left"));
 		} else {
 
 		}
@@ -372,7 +436,7 @@ public class SoldierPawn : MonoBehaviour {
 	
 	public void MarchRightToFoes() {
 		if (HasDirection(enemyDirection)) {
-			MoveTo (FindDirectionOther(enemyDirection, "right"));
+			MoveTo (FindDirectionROther(enemyDirection, "right"));
 		} else {
 
 		}
@@ -380,24 +444,23 @@ public class SoldierPawn : MonoBehaviour {
 	
 	public void MarchBackwardFoes() {
 		if (HasDirection(enemyDirection)) {
-			MoveTo (FindDirectionOther(enemyDirection, "back"));
+			MoveTo (FindDirectionROther(enemyDirection, "back"));
 		} else {
 
 		}
 	}
 
 	public void MoveTo(Vector3 target) {
-		CleanAllPheromones ();
-		intBeforeAct = Random.Range(50, 125);
+		//CleanAllPheromones ();
+		intBeforeAct = Random.Range(25, 50);
 		act = true;
-		Vector3 velocity = target * moveSpeed;
-		velocity = transform.TransformDirection (velocity);		
+		Vector3 velocity = transform.forward * moveSpeed;
+		velocity = transform.TransformDirection (velocity);
 		controller.Move (velocity * Time.deltaTime);
 	}
 
 	public void CleanAllPheromones()
 	{
-		Debug.Log ("DoubleFuck");
 		for (int i = 0 ; i <= 7 ; i++) {
 			enemyDirection[i] = 0;
 			friendDirection[i] = 0;

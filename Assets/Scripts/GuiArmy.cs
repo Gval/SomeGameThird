@@ -43,7 +43,7 @@ public class GuiArmy : MonoBehaviour {
 
 			for (int y = 0; y < numberRange; y++) {
 				float num2 = Random.Range(0, range);
-				Vector3 pos2 = RandomCircle(this.transform.localPosition, range);
+				Vector3 pos2 = RandomCircle(this.transform.localPosition, num2);
 				GameObject s = Instantiate(prefab, pos2, this.transform.localRotation) as GameObject;
 				SoldierPawn p = s.GetComponent<SoldierPawn>();
 				soldierList.Add(s);
@@ -80,7 +80,6 @@ public class GuiArmy : MonoBehaviour {
 				newOrder.toEvaluate.soldierPawn = soldierList[i].GetComponent<SoldierPawn>();
 				newOrder.toEvaluate.myObj = soldierList[i];
 				soldierComponentList[i].ordersList.Add(newOrder);
-
 			}
 			newOrder = null;
 		} else if (direction) {

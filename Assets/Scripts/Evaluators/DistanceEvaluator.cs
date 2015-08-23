@@ -47,7 +47,6 @@ public class DistanceEvaluator : Condition  {
 	}
 	
 	public override bool CompareObjectFoes(){
-
 		if (soldierPawn.findStrongestDirection (soldierPawn.enemyDirection) > 3) {
 			return true;
 		}
