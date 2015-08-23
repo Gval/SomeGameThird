@@ -43,23 +43,23 @@ public class SoldierController : MonoBehaviour {
 	public void FUCK()
 	{
 		switch (Process ()) {
-		case "Blue" :
-			foreach (SoldierPawn pawn in soldierPawn.soldierList) {
+		case "MarchTowardEnemy" :
+
 				pawn.SetTarget(ordersList[0].toEvaluate.target);
 				pawn.SetOrder (ordersList[0].resultMessage);
-			}
+
 			break;
-		case "Red" :
-			foreach (SoldierPawn pawn in soldierPawn.soldierList) {
+		case "MarchLeftToEnemy" :
+
 				pawn.SetTarget(ordersList[1].toEvaluate.target);
 				pawn.SetOrder (ordersList[1].resultMessage);
-			}
+
 			break;
-		case "Yellow" :
-			foreach (SoldierPawn pawn in soldierPawn.soldierList) {
+		case "MarchRightToEnemy" :
+
 				pawn.SetTarget(ordersList[2].toEvaluate.target);
 				pawn.SetOrder (ordersList[2].resultMessage);
-			}
+
 			break;
 		}
 	}

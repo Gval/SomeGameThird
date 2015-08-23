@@ -119,7 +119,6 @@ public class GuiArmy : MonoBehaviour {
 	}
 
 	void Orders(){
-
 		/*for(int i =0; i < soldierComponentList[0].ordersList.Count ; i++)
 		{
 			string s = soldierComponentList[0].ordersList[i].resultMessage + " " + soldierComponentList[0].ordersList[i].toEvaluate.ToString() + " " + soldierComponentList[0].ordersList[i].toEvaluate.taging;
@@ -130,4 +129,19 @@ public class GuiArmy : MonoBehaviour {
 		}*/
 	}
 
+	void DisplayEvaluators(){
+		for(int i = 0; i < AllEnums.ObjectsEnums) {
+
+		}
+	}
+
+	void DisplayOrders(){
+
+	}
+
+	void DisplayDirections(){
+
+	}
+
+	void displayLeader
 }

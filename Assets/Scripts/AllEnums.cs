@@ -9,28 +9,25 @@ public class AllEnums {
 		Feu,
 		Courrir,
 		Wait,
-		Stop,
 		Attaque
 	};
 
 	public enum ObjectsEnums
 	{
-		SignalBleu,
-		SignalVert,
-		SignalJaune,
-		Groupe1,
-		Groupe2,
-		Groupe3,
-		Groupe4,
-		Groupe5,
-		Enemy,
-		soldier
+		aggressivite,
+		allie,
+		allieblesse,
+		allietue,
+		enemiTue,
+		enemisDetecte
 	};
 
-	public enum TypeConditionEnums
+	public enum Direction
 	{
-		Distance,
-		Health
+		ToutDroit,
+		Agauche,
+		Adroite,
+		EnAvant
 	};
 
 }
